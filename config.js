@@ -12,7 +12,7 @@
     },
     instagram: "https://www.instagram.com/claudiu.peta/",
     facebook: "https://www.facebook.com/claudiu.peta",
-    email: "contact@claudiupeta.ro",            // TODO real site email
+    email: "claudiu.peta@gmail.com",
     commissions: {
       email: true,
       dm: true

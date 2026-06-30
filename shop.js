@@ -10,7 +10,7 @@
    *  Snipcart public API key lives in shop.html (#snipcart data-api-key).
    * ===================================================================== */
   var WEB3FORMS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY"; // TODO real Web3Forms key
-  var STUDIO_EMAIL  = "contact@claudiupeta.ro";    // TODO real studio email
+  var STUDIO_EMAIL  = "claudiu.peta@gmail.com";
   var PRINT_PRICE   = "250.00";                    // TODO real print price (RON)
 
   var STORAGE_KEY = "cp_enquiry_v1";
