@@ -18,6 +18,17 @@
     if(e.target && e.target.tagName === 'IMG') e.preventDefault();
   });
 
+  /* ---------- Track header height (mobile dropdown anchor) ---------- */
+  (function(){
+    var header = document.querySelector('.site-header');
+    if(!header) return;
+    function setH(){ document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px'); }
+    setH();
+    window.addEventListener('resize', setH, {passive:true});
+    window.addEventListener('orientationchange', setH);
+    if(window.ResizeObserver){ new ResizeObserver(setH).observe(header); }
+  })();
+
   /* ---------- Mobile nav toggle ---------- */
   (function(){
     var toggle = document.getElementById('navToggle');
