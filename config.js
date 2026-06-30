@@ -4,14 +4,14 @@
   "use strict";
 
   window.CP_CONFIG = {
-    // TODO real WhatsApp number (international, digits only, no '+')
+    // Disabled until a real number is supplied — flip enabled:true and set the number.
     whatsapp: {
-      enabled: true,
-      number: "40700000000",
+      enabled: false,
+      number: "40700000000", // TODO real WhatsApp number (international, digits only, no '+')
       message: "Bună! Aș dori o lucrare."
     },
-    instagram: "https://instagram.com/REPLACE", // TODO real Instagram URL
-    facebook: "https://facebook.com/REPLACE",   // TODO real Facebook URL
+    instagram: "https://www.instagram.com/claudiu.peta/",
+    facebook: "https://www.facebook.com/claudiu.peta",
     email: "contact@claudiupeta.ro",            // TODO real site email
     commissions: {
       email: true,
