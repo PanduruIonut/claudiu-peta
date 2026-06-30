@@ -4,11 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title data-i18n="doc.title.shop">Shop — Claudiu Peta</title>
-<meta name="description" content="Acquire original paintings by Claudiu Peta (signed PETA), or fine-art prints of the cloud-and-sky portraits. Each work is available to purchase by enquiry.">
+<meta name="description" content="Buy fine-art prints of Claudiu Peta's cloud-and-sky portraits (signed PETA), or enquire about the original acrylic paintings from the 2DARK & VERSUS series.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+<!-- Snipcart -->
+<link rel="preconnect" href="https://app.snipcart.com">
+<link rel="preconnect" href="https://cdn.snipcart.com">
+<link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.7.1/default/snipcart.css">
+
 <link rel="stylesheet" href="styles.css">
 <noscript><style>body{opacity:1 !important;} .reveal{opacity:1 !important;transform:none !important;}</style></noscript>
 </head>
@@ -16,7 +22,7 @@
 
 <a id="top"></a>
 
-<!-- HEADER -->
+<!-- HEADER (canonical — shop swaps the cart for Snipcart) -->
 <header class="site-header">
   <div class="header-inner">
     <a href="index.html#top" class="brand">
@@ -28,7 +34,8 @@
         <a href="index.html#paintings" data-i18n="nav.paintings">Paintings</a>
         <a href="index.html#murals" data-i18n="nav.murals">Murals</a>
         <a href="index.html#restoration" data-i18n="nav.restoration">Restoration</a>
-        <a href="index.html#about" data-i18n="nav.about">About</a>
+        <a href="index.html#events" data-i18n="nav.events">Events</a>
+        <a href="index.html#bio" data-i18n="nav.bio">BIO</a>
         <a href="shop.html" class="active" data-i18n="nav.shop">Shop</a>
         <a href="index.html#contact" data-i18n="nav.contact">Contact</a>
       </nav>
@@ -36,11 +43,12 @@
         <button type="button" data-lang="en">EN</button>
         <button type="button" data-lang="ro">RO</button>
       </div>
-      <button class="cart-btn" id="cartBtn" data-i18n-attr="aria-label:cart.aria;title:cart.titleAttr" aria-label="Open enquiry list" title="Enquiry list">
+      <!-- Snipcart cart (prints) -->
+      <button class="snipcart-checkout cart-btn" type="button" aria-label="Cart" title="Cart">
         <svg class="cart-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
           <path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 0 1 6 0"/>
         </svg>
-        <span class="cart-count" id="cartCount">0</span>
+        <span class="snipcart-items-count cart-count"></span>
       </button>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
@@ -56,32 +64,33 @@
     <h1 data-i18n-html="shop.h1">Take a piece of the <em>sky</em> home.</h1>
     <p data-i18n="shop.intro">Original acrylic paintings from the 2DARK &amp; VERSUS series — each one unique — and fine-art prints of the cloud-and-sky portraits. Every work is sold by enquiry: add the pieces you love to your list and send it through, and I'll reply personally with price, availability, shipping, and framing.</p>
     <div class="shop-tabs">
-      <a href="#originals" data-i18n="shop.tab.originals">Originals</a>
       <a href="#prints" data-i18n="shop.tab.prints">Prints</a>
+      <a href="#originals" data-i18n="shop.tab.originals">Originals</a>
       <a href="index.html#contact" data-i18n="shop.tab.commissions">Commissions</a>
     </div>
   </div>
 </section>
 
-<!-- ORIGINALS -->
-<section id="originals" class="shop-section">
+<!-- PRINTS (buyable via Snipcart) -->
+<section id="prints" class="shop-section">
   <div class="sec-head">
-    <h2 data-i18n="shop.sec.originals.h2">Original Paintings</h2>
-    <span class="meta" data-i18n="shop.sec.originals.meta">Acrylic on canvas · one of a kind · signed PETA</span>
+    <h2 data-i18n="shop.sec.prints.h2">Fine-Art Prints</h2>
+    <span class="meta" data-i18n="shop.sec.prints.meta">Giclée on archival paper · open edition · three sizes</span>
   </div>
-  <div class="shop-grid" id="originalsGrid">
-    <noscript><p style="color:#9a9a9a;">The shop requires JavaScript. Please enable it, or <a href="index.html#contact" style="border-bottom:1px solid #161616;">contact the studio</a> directly.</p></noscript>
+  <div class="shop-grid" id="printsGrid">
+    <noscript><p style="color:var(--ink-soft,#5A6072);">The shop requires JavaScript. Please enable it, or <a href="index.html#contact" style="border-bottom:1px solid var(--ink,#14233E);">contact the studio</a> directly.</p></noscript>
   </div>
 </section>
 
-<!-- PRINTS -->
+<!-- ORIGINALS (enquiry only) -->
 <section class="shop-section alt">
-  <div class="shop-section-inner" id="prints">
+  <div class="shop-section-inner" id="originals">
     <div class="sec-head">
-      <h2 data-i18n="shop.sec.prints.h2">Fine-Art Prints</h2>
-      <span class="meta" data-i18n="shop.sec.prints.meta">Giclée on archival paper · open edition · three sizes</span>
+      <h2 data-i18n="shop.sec.originals.h2">Original Paintings</h2>
+      <span class="meta" data-i18n="shop.sec.originals.meta">Acrylic on canvas · one of a kind · signed PETA</span>
     </div>
-    <div class="shop-grid" id="printsGrid"></div>
+    <p class="shop-note" data-i18n="shop.originalNote" style="font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--turquoise,#15625E);margin:-30px 0 38px;">Originals are sold by enquiry</p>
+    <div class="shop-grid" id="originalsGrid"></div>
   </div>
 </section>
 
@@ -91,9 +100,11 @@
     <div class="contact-eyebrow" data-i18n="shop.cta.eyebrow">Can't find it · want a commission</div>
     <h2 data-i18n="shop.cta.h2">Looking for something specific?</h2>
     <p data-i18n="shop.cta.p">If a piece is already sold, I can often make a print of it, or paint something new for your space. Tell me what you have in mind.</p>
-    <div class="contact-links">
+    <!-- features.js renders email / WhatsApp / Instagram / Facebook from CP_CONFIG -->
+    <div class="contact-links" data-contacts></div>
+    <div class="contact-links" style="margin-top:22px;">
       <a href="index.html#contact" data-i18n="shop.cta.contact">Contact the studio</a>
-      <button class="cart-btn" id="cartBtnFooter" style="border-bottom:1px solid #d2d2cc;padding-bottom:7px;color:#666;letter-spacing:0.16em;" data-i18n="shop.cta.review">Review my list</button>
+      <button type="button" class="link-btn" id="cartBtnFooter" data-i18n-html="shop.cta.review" style="background:none;border:0;cursor:pointer;font:inherit;font-size:13px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-soft,#5A6072);border-bottom:1px solid var(--line,#DCD7CC);padding:0 0 7px;">Review my list</button>
     </div>
   </div>
 </section>
@@ -107,7 +118,7 @@
   </div>
 </footer>
 
-<!-- CART DRAWER -->
+<!-- ENQUIRY DRAWER (originals only — preserves the existing Web3Forms enquiry UX) -->
 <div class="cart-overlay" id="cartOverlay"></div>
 <aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Enquiry list">
   <div class="cart-drawer-head">
@@ -153,8 +164,14 @@
   </div>
 </aside>
 
+<!-- Snipcart container -->
+<div hidden id="snipcart" data-api-key="REPLACE_SNIPCART_PUBLIC_KEY" data-config-modal-style="side"></div>
+<script async src="https://cdn.snipcart.com/themes/v3.7.1/default/snipcart.js"></script>
+
+<script src="config.js" defer></script>
 <script src="i18n.js" defer></script>
 <script src="app.js" defer></script>
+<script src="features.js" defer></script>
 <script src="shop.js" defer></script>
 
 </body>

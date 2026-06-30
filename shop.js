@@ -2,20 +2,23 @@
   "use strict";
 
   /* =====================================================================
-   *  CONFIG — replace these two values before going live
-   *  1. WEB3FORMS_KEY: create a free key at https://web3forms.com (tie it
-   *     to the studio's email address; that's where enquiries are sent).
+   *  CONFIG — replace before going live
+   *  1. WEB3FORMS_KEY: free key at https://web3forms.com, tied to the
+   *     studio's inbox — this is where ORIGINAL-painting enquiries land.
    *  2. STUDIO_EMAIL: shown to the visitor as a fallback contact.
+   *  3. PRINT_PRICE: fixed Snipcart price (RON) for every print — TODO real.
+   *  Snipcart public API key lives in shop.html (#snipcart data-api-key).
    * ===================================================================== */
-  var WEB3FORMS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY";
-  var STUDIO_EMAIL  = "hello@claudiupeta.com";
+  var WEB3FORMS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY"; // TODO real Web3Forms key
+  var STUDIO_EMAIL  = "contact@claudiupeta.ro";    // TODO real studio email
+  var PRINT_PRICE   = "250.00";                    // TODO real print price (RON)
 
-  var STORAGE_KEY = "cp_cart_v1";
+  var STORAGE_KEY = "cp_enquiry_v1";
 
   /* ---------- i18n helper ---------- */
   function t(key){ return (window.I18N && window.I18N.t(key)) || key; }
 
-  /* ---------- Catalogue ---------- */
+  /* ---------- Catalogue (16 works — shared with the portfolio) ---------- */
   var WORKS = [
     { id:"howl",        title:"The Howl",                          src:"uploads/489916025_1221463949985671_3031214626376531084_n.jpg" },
     { id:"glacial",     title:"Glacial Emotion",       year:2019,  src:"uploads/488933954_1221462866652446_1769582109575111419_n.jpg" },
@@ -34,57 +37,13 @@
     { id:"dolor",       title:"Dolor",                 year:2023,  src:"uploads/489288843_1221458849986181_3146628413477019959_n.jpg" },
     { id:"morethan",    title:"More than perfect",     year:2023,  src:"uploads/489887650_1221184716680261_8634085307208487951_n.jpg" }
   ];
-  var PRINT_SIZES = [
-    { code:"A3", label:"A3 — 30 × 42 cm" },
-    { code:"A2", label:"A2 — 42 × 59 cm" },
-    { code:"A1", label:"A1 — 59 × 84 cm" }
-  ];
-  function sizeLabel(code){
-    for(var i=0;i<PRINT_SIZES.length;i++){ if(PRINT_SIZES[i].code===code) return PRINT_SIZES[i].label; }
-    return code;
-  }
+
+  // Print sizes — drive both the visible note and Snipcart's custom-field options.
+  var PRINT_SIZE_CODES = ["A3", "A2", "A1"];
+
   function originalMeta(w){ return t("prod.medium") + (w.year ? " · " + w.year : ""); }
 
-  /* ---------- Cart state ---------- */
-  function loadCart(){
-    try{ var raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : []; }
-    catch(e){ return []; }
-  }
-  function saveCart(c){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(c)); }catch(e){} }
-  var cart = loadCart();
-
-  function totalQty(){ return cart.reduce(function(n,i){ return n + i.qty; }, 0); }
-  function addItem(item){
-    var existing = null;
-    for(var i=0;i<cart.length;i++){ if(cart[i].key === item.key){ existing = cart[i]; break; } }
-    if(existing){ if(item.type === "print") existing.qty += 1; }
-    else { cart.push(item); }
-    saveCart(cart); syncAll();
-  }
-  function removeItem(key){ cart = cart.filter(function(i){ return i.key !== key; }); saveCart(cart); syncAll(); }
-  function changeQty(key, delta){
-    for(var i=0;i<cart.length;i++){
-      if(cart[i].key === key){
-        cart[i].qty += delta;
-        if(cart[i].qty < 1){ removeItem(key); return; }
-        break;
-      }
-    }
-    saveCart(cart); syncAll();
-  }
-  function hasOriginal(id){ return cart.some(function(i){ return i.type==="original" && i.workId===id; }); }
-
-  /* ---------- Count badge ---------- */
-  function syncCount(){
-    var n = totalQty();
-    document.querySelectorAll(".cart-count").forEach(function(el){
-      el.textContent = n;
-      el.classList.toggle("show", n > 0);
-    });
-  }
-
-  /* ---------- Product cards ---------- */
-  var i18nUpdaters = [];
+  /* ---------- DOM helper ---------- */
   function el(tag, cls, text){
     var e = document.createElement(tag);
     if(cls) e.className = cls;
@@ -92,8 +51,59 @@
     return e;
   }
 
+  /* =====================================================================
+   *  PRINTS — buyable via Snipcart (fixed price, RON)
+   * ===================================================================== */
+  function buildPrintCard(w){
+    var card = el("div","product");
+
+    var media = el("div","product-media");
+    var img = el("img"); img.src = w.src; img.alt = w.title + " — fine-art print";
+    media.appendChild(img);
+    var tag = el("span","product-tag", t("prod.tag.print"));
+    media.appendChild(tag);
+    media.addEventListener("click", function(){ if(window.CPViewImage) window.CPViewImage(w.src, w.title); });
+    card.appendChild(media);
+
+    var body = el("div","product-body");
+    var title = el("div","product-title", w.title);
+    var meta = el("div","product-meta", t("prod.printMedium"));
+    var price = el("div","product-price", PRINT_PRICE.split(".")[0] + " RON · A3–A1"); // TODO real price
+    body.appendChild(title); body.appendChild(meta); body.appendChild(price);
+
+    var foot = el("div","product-foot");
+    // Snipcart add-to-cart button — Size handled by Snipcart's custom field.
+    var btn = el("button","snipcart-add-item btn", t("shop.addCart"));
+    btn.type = "button";
+    btn.setAttribute("data-item-id", "print-" + w.id);
+    btn.setAttribute("data-item-name", w.title + " — Print"); // language-stable for Snipcart
+    btn.setAttribute("data-item-price", PRINT_PRICE);          // TODO real price (RON)
+    btn.setAttribute("data-item-url", "/shop.html");
+    btn.setAttribute("data-item-image", w.src);
+    btn.setAttribute("data-item-description", "Giclée fine-art print on archival paper, signed PETA.");
+    btn.setAttribute("data-item-custom1-name", "Size");
+    btn.setAttribute("data-item-custom1-options", PRINT_SIZE_CODES.join("|")); // A3|A2|A1
+    foot.appendChild(btn);
+    body.appendChild(foot);
+    card.appendChild(body);
+
+    i18nUpdaters.push(function(){
+      tag.textContent = t("prod.tag.print");
+      meta.textContent = t("prod.printMedium");
+      price.textContent = PRINT_PRICE.split(".")[0] + " RON · A3–A1";
+      btn.textContent = t("shop.addCart");
+    });
+    return card;
+  }
+
+  /* =====================================================================
+   *  ORIGINALS — enquiry only (Web3Forms drawer, no payment)
+   * ===================================================================== */
+  var i18nUpdaters = [];
+
   function buildOriginalCard(w){
     var card = el("div","product");
+
     var media = el("div","product-media");
     var img = el("img"); img.src = w.src; img.alt = w.title + (w.year ? ", " + w.year : "");
     media.appendChild(img);
@@ -107,17 +117,19 @@
     var meta = el("div","product-meta", originalMeta(w));
     var price = el("div","product-price", t("prod.price"));
     body.appendChild(title); body.appendChild(meta); body.appendChild(price);
+
     var foot = el("div","product-foot");
-    var btn = el("button","btn", t("prod.add"));
+    var btn = el("button","btn ghost", t("shop.enquire"));
+    btn.type = "button";
+    btn.setAttribute("data-original", w.id);
     function refresh(){
       if(hasOriginal(w.id)){ btn.textContent = t("prod.inList"); btn.disabled = true; }
-      else { btn.textContent = t("prod.add"); btn.disabled = false; }
+      else { btn.textContent = t("shop.enquire"); btn.disabled = false; }
     }
     btn.addEventListener("click", function(){
-      addItem({ key:"o:"+w.id, type:"original", workId:w.id, title:w.title, src:w.src, year:w.year, qty:1 });
+      addOriginal({ key:"o:"+w.id, workId:w.id, title:w.title, src:w.src, year:w.year });
       flash(btn); refresh(); openDrawer();
     });
-    btn.setAttribute("data-original", w.id);
     refresh();
     foot.appendChild(btn);
     body.appendChild(foot);
@@ -132,71 +144,43 @@
     return card;
   }
 
-  function buildPrintCard(w){
-    var card = el("div","product");
-    var media = el("div","product-media");
-    var img = el("img"); img.src = w.src; img.alt = w.title + " — fine-art print";
-    media.appendChild(img);
-    var tag = el("span","product-tag", t("prod.tag.print"));
-    media.appendChild(tag);
-    media.addEventListener("click", function(){ if(window.CPViewImage) window.CPViewImage(w.src, w.title); });
-    card.appendChild(media);
-
-    var body = el("div","product-body");
-    var title = el("div","product-title", w.title);
-    var meta = el("div","product-meta", t("prod.printMedium"));
-    var price = el("div","product-price", t("prod.price"));
-    body.appendChild(title); body.appendChild(meta); body.appendChild(price);
-    var foot = el("div","product-foot");
-    var sel = el("select","size-select");
-    sel.setAttribute("aria-label", t("prod.sizeAria").replace("{title}", w.title));
-    PRINT_SIZES.forEach(function(s){ var o = el("option", null, s.label); o.value = s.code; sel.appendChild(o); });
-    var btn = el("button","btn ghost", t("prod.add"));
-    btn.addEventListener("click", function(){
-      var code = sel.value || PRINT_SIZES[0].code;
-      addItem({ key:"p:"+w.id+":"+code, type:"print", workId:w.id, title:w.title, src:w.src, sizeCode:code, qty:1 });
-      flash(btn); openDrawer();
-    });
-    foot.appendChild(sel); foot.appendChild(btn);
-    body.appendChild(foot);
-    card.appendChild(body);
-
-    i18nUpdaters.push(function(){
-      tag.textContent = t("prod.tag.print");
-      meta.textContent = t("prod.printMedium");
-      price.textContent = t("prod.price");
-      sel.setAttribute("aria-label", t("prod.sizeAria").replace("{title}", w.title));
-      if(!btn.classList.contains("added")) btn.textContent = t("prod.add");
-    });
-    return card;
-  }
-
   function flash(btn){
-    var added = t("prod.added");
     btn.classList.add("added");
-    btn.textContent = added;
+    btn.textContent = t("prod.added");
     setTimeout(function(){
       btn.classList.remove("added");
-      if(!btn.disabled){
-        btn.textContent = btn.getAttribute("data-original") ? t("prod.add") : t("prod.add");
-      } else {
-        btn.textContent = t("prod.inList");
-      }
+      btn.textContent = btn.disabled ? t("prod.inList") : t("shop.enquire");
     }, 1100);
   }
 
+  /* ---------- Enquiry state (originals) ---------- */
+  function loadCart(){
+    try{ var raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : []; }
+    catch(e){ return []; }
+  }
+  function saveCart(c){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(c)); }catch(e){} }
+  var cart = loadCart();
+
+  function hasOriginal(id){ return cart.some(function(i){ return i.workId === id; }); }
+  function addOriginal(item){
+    if(hasOriginal(item.workId)) return;
+    cart.push(item); saveCart(cart); syncAll();
+  }
+  function removeItem(key){ cart = cart.filter(function(i){ return i.key !== key; }); saveCart(cart); syncAll(); }
+
+  /* ---------- Render catalogue ---------- */
   function renderCatalogue(){
-    var oGrid = document.getElementById("originalsGrid");
     var pGrid = document.getElementById("printsGrid");
-    if(oGrid){
-      WORKS.forEach(function(w){ var c = buildOriginalCard(w); oGrid.appendChild(c); if(window.CPReveal) window.CPReveal(c); });
-    }
+    var oGrid = document.getElementById("originalsGrid");
     if(pGrid){
       WORKS.forEach(function(w){ var c = buildPrintCard(w); pGrid.appendChild(c); if(window.CPReveal) window.CPReveal(c); });
     }
+    if(oGrid){
+      WORKS.forEach(function(w){ var c = buildOriginalCard(w); oGrid.appendChild(c); if(window.CPReveal) window.CPReveal(c); });
+    }
   }
 
-  /* ---------- Drawer ---------- */
+  /* ---------- Enquiry drawer ---------- */
   var drawer = document.getElementById("cartDrawer");
   var overlay = document.getElementById("cartOverlay");
   var itemsEl = document.getElementById("cartItems");
@@ -205,7 +189,7 @@
   var drawerTitle = document.getElementById("drawerTitle");
 
   function openDrawer(){
-    if(!drawer){ window.location.href = "shop.html#cart"; return; }
+    if(!drawer) return;
     showListView();
     drawer.classList.add("open");
     overlay.classList.add("open");
@@ -230,12 +214,6 @@
     drawerTitle.textContent = t("cart.title.quote");
   }
 
-  function lineMeta(item){
-    return item.type === "original"
-      ? t("prod.medium") + (item.year ? " · " + item.year : "")
-      : t("prod.tag.print") + " · " + sizeLabel(item.sizeCode);
-  }
-
   function renderDrawer(){
     if(!itemsEl) return;
     itemsEl.innerHTML = "";
@@ -251,18 +229,8 @@
       var img = el("img"); img.src = item.src; img.alt = item.title; line.appendChild(img);
       var info = el("div","cart-line-info");
       info.appendChild(el("div","cart-line-title", item.title));
-      info.appendChild(el("div","cart-line-meta", lineMeta(item)));
+      info.appendChild(el("div","cart-line-meta", t("prod.tag.original") + (item.year ? " · " + item.year : "")));
       var ctrl = el("div","cart-line-ctrl");
-      if(item.type === "print"){
-        var qty = el("div","qty");
-        var minus = el("button",null,"−"); minus.setAttribute("aria-label", t("cart.qtyMinus"));
-        var span = el("span",null,String(item.qty));
-        var plus = el("button",null,"+"); plus.setAttribute("aria-label", t("cart.qtyPlus"));
-        minus.addEventListener("click", function(){ changeQty(item.key,-1); });
-        plus.addEventListener("click", function(){ changeQty(item.key, 1); });
-        qty.appendChild(minus); qty.appendChild(span); qty.appendChild(plus);
-        ctrl.appendChild(qty);
-      }
       var rm = el("button","cart-remove", t("cart.remove"));
       rm.addEventListener("click", function(){ removeItem(item.key); });
       ctrl.appendChild(rm);
@@ -273,13 +241,18 @@
   }
 
   function syncAll(){
-    syncCount();
     renderDrawer();
+    // Reflect enquiry count on the footer "Review my list" trigger (NOT .cart-count — that is Snipcart's).
+    var footBtn = document.getElementById("cartBtnFooter");
+    if(footBtn){
+      var base = t("shop.cta.review");
+      footBtn.textContent = cart.length ? base + " (" + cart.length + ")" : base;
+    }
     document.querySelectorAll("[data-original]").forEach(function(btn){
-      var id = btn.getAttribute("data-original");
       if(btn.classList.contains("added")) return;
+      var id = btn.getAttribute("data-original");
       if(hasOriginal(id)){ btn.textContent = t("prod.inList"); btn.disabled = true; }
-      else if(btn.disabled){ btn.textContent = t("prod.add"); btn.disabled = false; }
+      else if(btn.disabled){ btn.textContent = t("shop.enquire"); btn.disabled = false; }
     });
     if(!cart.length && checkoutView && checkoutView.classList.contains("active")) showListView();
   }
@@ -287,12 +260,9 @@
   /* ---------- Checkout submit (Web3Forms) ---------- */
   function composeOrder(){
     var lines = cart.map(function(i){
-      var label = (i.type === "original" ? "ORIGINAL" : "PRINT");
-      var sz = i.type === "print" ? (" — " + sizeLabel(i.sizeCode)) : (i.year ? " (" + i.year + ")" : "");
-      var qty = i.type === "print" ? (" x" + i.qty) : "";
-      return "- [" + label + "] " + i.title + sz + qty;
+      return "- [ORIGINAL] " + i.title + (i.year ? " (" + i.year + ")" : "");
     });
-    return "Enquiry — " + totalQty() + " item(s):\n\n" + lines.join("\n");
+    return "Enquiry — " + cart.length + " original(s):\n\n" + lines.join("\n");
   }
 
   function initCheckout(){
@@ -320,10 +290,10 @@
         return;
       }
 
-      var qty = totalQty();
+      var qty = cart.length;
       var payload = {
         access_key: WEB3FORMS_KEY,
-        subject: "New shop enquiry — Claudiu Peta (" + qty + " item" + (qty>1?"s":"") + ")",
+        subject: "New original-painting enquiry — Claudiu Peta (" + qty + " item" + (qty>1?"s":"") + ")",
         from_name: name,
         name: name,
         email: email,
@@ -364,6 +334,7 @@
   document.addEventListener("cp:langchange", function(){
     i18nUpdaters.forEach(function(fn){ fn(); });
     renderDrawer();
+    syncAll();
     if(drawerTitle){
       drawerTitle.textContent = (checkoutView && checkoutView.classList.contains("active"))
         ? t("cart.title.quote") : t("cart.title.list");
@@ -372,9 +343,8 @@
 
   /* ---------- Wire up ---------- */
   function wire(){
-    document.querySelectorAll("#cartBtn, #cartBtnFooter").forEach(function(b){
-      b.addEventListener("click", openDrawer);
-    });
+    var footBtn = document.getElementById("cartBtnFooter");
+    if(footBtn) footBtn.addEventListener("click", openDrawer);
     var close = document.getElementById("cartClose");
     if(close) close.addEventListener("click", closeDrawer);
     if(overlay) overlay.addEventListener("click", closeDrawer);
@@ -392,6 +362,6 @@
   wire();
   syncAll();
 
-  if(window.location.hash === "#cart") setTimeout(openDrawer, 250);
+  if(window.location.hash === "#enquiry") setTimeout(openDrawer, 250);
 
 })();

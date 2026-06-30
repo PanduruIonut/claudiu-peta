@@ -107,7 +107,27 @@
       "prod.add":"Add to enquiry",
       "prod.inList":"In your list",
       "prod.added":"Added ✓",
-      "prod.sizeAria":"Print size for {title}"
+      "prod.sizeAria":"Print size for {title}",
+
+      "nav.events":"Events",
+      "nav.bio":"BIO",
+      "events.eyebrow":"Exhibitions & events",
+      "events.h2":"Events",
+      "events.meta":"Exhibitions, fairs & live painting",
+      "events.upcoming":"Upcoming",
+      "events.past":"Past",
+      "events.none":"Dates announced soon.",
+      "bio.label":"BIO",
+      "cv.heading":"Curriculum Vitae",
+      "cv.download":"Download CV (PDF)",
+      "cv.updated":"Updated",
+      "cv.education":"Education",
+      "cv.exhibitions":"Selected exhibitions",
+      "cv.commissions":"Selected commissions",
+      "contact.commission":"Commission via message or email",
+      "shop.addCart":"Add to cart",
+      "shop.enquire":"Enquire",
+      "shop.originalNote":"Originals are sold by enquiry"
     },
 
     ro: {
@@ -215,7 +235,27 @@
       "prod.add":"Adaugă la solicitare",
       "prod.inList":"În lista ta",
       "prod.added":"Adăugat ✓",
-      "prod.sizeAria":"Dimensiune print pentru {title}"
+      "prod.sizeAria":"Dimensiune print pentru {title}",
+
+      "nav.events":"Evenimente",
+      "nav.bio":"BIO",
+      "events.eyebrow":"Expoziții & evenimente",
+      "events.h2":"Evenimente",
+      "events.meta":"Expoziții, târguri & pictură live",
+      "events.upcoming":"Viitoare",
+      "events.past":"Trecute",
+      "events.none":"Datele vor fi anunțate în curând.",
+      "bio.label":"BIO",
+      "cv.heading":"Curriculum Vitae",
+      "cv.download":"Descarcă CV (PDF)",
+      "cv.updated":"Actualizat",
+      "cv.education":"Educație",
+      "cv.exhibitions":"Expoziții selectate",
+      "cv.commissions":"Comenzi selectate",
+      "contact.commission":"Comandă prin mesaj sau email",
+      "shop.addCart":"Adaugă în coș",
+      "shop.enquire":"Întreabă",
+      "shop.originalNote":"Originalele se vând la cerere"
     }
   };
 

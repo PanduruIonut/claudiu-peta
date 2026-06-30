@@ -8,7 +8,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <noscript><style>body{opacity:1 !important;} .reveal{opacity:1 !important;transform:none !important;}</style></noscript>
 </head>
@@ -28,7 +28,8 @@
         <a href="#paintings" data-i18n="nav.paintings">Paintings</a>
         <a href="#murals" data-i18n="nav.murals">Murals</a>
         <a href="#restoration" data-i18n="nav.restoration">Restoration</a>
-        <a href="#about" data-i18n="nav.about">About</a>
+        <a href="#events" data-i18n="nav.events">Events</a>
+        <a href="#bio" data-i18n="nav.bio">BIO</a>
         <a href="shop.html" data-i18n="nav.shop">Shop</a>
         <a href="#contact" data-i18n="nav.contact">Contact</a>
       </nav>
@@ -36,12 +37,6 @@
         <button type="button" data-lang="en">EN</button>
         <button type="button" data-lang="ro">RO</button>
       </div>
-      <button class="cart-btn" id="cartBtn" data-i18n-attr="aria-label:cart.aria;title:cart.titleAttr" aria-label="Open enquiry list" title="Enquiry list">
-        <svg class="cart-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
-          <path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 0 1 6 0"/>
-        </svg>
-        <span class="cart-count" id="cartCount">0</span>
-      </button>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
       <span></span><span></span><span></span>
@@ -137,15 +132,38 @@
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about" class="about">
+<!-- EVENTS -->
+<section id="events" class="events" aria-label="Events">
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="events.eyebrow">Exhibitions &amp; events</span>
+    <h2 data-i18n="events.h2">Events</h2>
+    <span class="meta" data-i18n="events.meta">Exhibitions, fairs &amp; live painting</span>
+  </div>
+  <!-- features.js renders CP_EVENTS here (split upcoming / past) -->
+  <div id="events-list" class="events-list"></div>
+</section>
+
+<!-- BIO -->
+<section id="bio" class="about">
   <div class="about-inner">
     <img src="uploads/491919353_24118857947725996_1400614818195727863_n.jpg" alt="Claudiu Peta on the scaffold, painting">
     <div>
-      <div class="about-label" data-i18n="about.label">About the Artist</div>
+      <div class="about-label" data-i18n="bio.label">BIO</div>
       <p class="about-lead" data-i18n="about.lead">I work between three kinds of making: surreal portraits on canvas, large murals on walls and facades, and the quiet repair of old paintings and painted furniture.</p>
       <p class="about-body" data-i18n="about.body">Clouds and weather keep turning into faces in my work — a way of painting an inner life onto the sky. The same patience and respect for material that a mural needs is what an old, damaged canvas asks for too. I take a limited number of commissions and conservation projects so each can be given the time it deserves.</p>
       <div class="about-sign">Claudiu Peta</div>
+
+      <!-- CV block — features.js fills #cv-body and toggles a clean print view -->
+      <div class="cv cv-print-area">
+        <div class="cv-head">
+          <h3 data-i18n="cv.heading">Curriculum Vitae</h3>
+          <div class="cv-actions">
+            <button type="button" class="btn cv-download" data-cv-download data-i18n="cv.download">Download CV (PDF)</button>
+            <span class="cv-updated"><span data-i18n="cv.updated">Updated</span> <span data-cv-updated></span></span>
+          </div>
+        </div>
+        <div id="cv-body" class="cv-body"></div>
+      </div>
     </div>
   </div>
 </section>
@@ -170,11 +188,9 @@
     <div class="contact-eyebrow" data-i18n="contact.eyebrow">Commissions · murals · restoration</div>
     <h2 data-i18n="contact.h2">Let's begin a piece.</h2>
     <p data-i18n="contact.p">Tell me about your wall, the painting you'd like, or a piece that needs care. For restorations, a photograph or two helps me give an honest first impression.</p>
-    <div class="contact-links">
-      <a href="mailto:hello@claudiupeta.com" data-i18n="contact.email">Email the studio</a>
-      <a href="#contact" class="muted">WhatsApp</a>
-      <a href="#contact" class="muted">Instagram</a>
-    </div>
+    <!-- features.js renders email / WhatsApp / Instagram / Facebook from CP_CONFIG -->
+    <div class="contact-links" data-contacts></div>
+    <p class="contact-commission" data-i18n="contact.commission">Commission via message or email</p>
   </div>
 </section>
 
@@ -187,9 +203,12 @@
   </div>
 </footer>
 
+<script src="config.js" defer></script>
+<script src="events.js" defer></script>
+<script src="cv.js" defer></script>
 <script src="i18n.js" defer></script>
 <script src="app.js" defer></script>
-<script src="shop.js" defer></script>
+<script src="features.js" defer></script>
 
 </body>
 </html>
