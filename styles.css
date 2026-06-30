@@ -1,30 +1,30 @@
 /* ============================================================
    Claudiu Peta — design system
-   Cool-neutral palette + teal accent + Archivo. All rules reference :root tokens.
+   Grigio di pane + darker turquoise + royal blue + Archivo. All rules reference :root tokens.
    ============================================================ */
 
 :root{
   /* Surfaces & ink */
-  --bg:#F3F4F4;            /* page background — cool light neutral grey */
+  --bg:#E8E8E3;            /* page background — grigio di pane (de-yellowed bread-grey) */
   --surface:#FFFFFF;       /* cards / panels / alternating bands */
-  --ink:#1C2730;           /* primary text — calm dark slate */
-  --ink-soft:#5C6670;      /* secondary text */
-  --line:#E4E6E6;          /* hairline borders */
-  --line-soft:#EEEFEF;
+  --ink:#18263F;           /* primary text — deep navy */
+  --ink-soft:#5B6473;      /* secondary text */
+  --line:#DEDED7;          /* hairline borders */
+  --line-soft:#E9E9E3;
 
-  /* Accents — single muted teal; no intense blue */
-  --turquoise:#16635E;     /* PRIMARY accent: links, buttons, small rules */
-  --turquoise-deep:#0F4A46;/* hover */
-  --royal:#16635E;         /* CTA buttons — repointed to teal (royal blue dropped) */
-  --royal-deep:#0F4A46;    /* hover */
+  /* Accents — darker turquoise + refined royal blue (per brief) */
+  --turquoise:#114E4A;     /* darker turquoise: links, small rules, captions hover */
+  --turquoise-deep:#0C3D3A;/* hover */
+  --royal:#2A3A82;         /* royal blue: CTA buttons / primary actions (refined, not neon) */
+  --royal-deep:#202E6C;    /* hover */
   --white:#FFFFFF;
 
-  /* Dark sections — charcoal slate instead of navy/black */
-  --navy:#1C262E;          /* dark section background */
-  --navy-grad:28,38,46;    /* dark slate as rgb() triplet for overlays */
-  --on-navy:#ECEDED;       /* cool off-white text on dark */
-  --on-navy-soft:rgba(236,237,237,0.72);
-  --on-navy-line:rgba(236,237,237,0.18);
+  /* Dark sections — bleumarin (deep navy) */
+  --navy:#14213C;          /* dark section background */
+  --navy-grad:20,33,60;    /* navy as rgb() triplet for overlays */
+  --on-navy:#ECEDEA;       /* cool off-white text on navy */
+  --on-navy-soft:rgba(236,237,234,0.72);
+  --on-navy-line:rgba(236,237,234,0.18);
 
   /* Feedback */
   --error:#B14B4B;
