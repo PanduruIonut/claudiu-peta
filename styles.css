@@ -309,8 +309,9 @@ a.event-title:hover{color:var(--turquoise);}
 }
 .contact-links a:hover{color:var(--turquoise);border-bottom-color:var(--turquoise);}
 .contact-links a.muted{border-bottom-color:var(--line);color:var(--ink-soft);}
-.contact-commission{
-  font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-soft);margin-top:32px;
+.contact-inner .contact-commission{
+  font-size:12px;line-height:1.5;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--ink-soft);max-width:none;margin:40px auto 0;
 }
 
 /* FOOTER */
