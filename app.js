@@ -47,6 +47,30 @@
     nav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeNav); });
   })();
 
+  /* ---------- Dropdown submenu (Artworks) ---------- */
+  (function(){
+    var items = document.querySelectorAll('.nav-item.has-sub');
+    if(!items.length) return;
+    items.forEach(function(item){
+      var toggle = item.querySelector('.nav-sub-toggle');
+      if(!toggle) return;
+      function close(){ item.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }
+      function open(){ item.classList.add('open'); toggle.setAttribute('aria-expanded','true'); }
+      toggle.addEventListener('click', function(e){
+        e.preventDefault();
+        if(item.classList.contains('open')) close(); else open();
+      });
+      // Collapse after choosing a sub-item.
+      item.querySelectorAll('.subnav a').forEach(function(a){ a.addEventListener('click', close); });
+    });
+    // Click outside closes any open submenu.
+    document.addEventListener('click', function(e){
+      items.forEach(function(item){
+        if(!item.contains(e.target)) { item.classList.remove('open'); var t = item.querySelector('.nav-sub-toggle'); if(t) t.setAttribute('aria-expanded','false'); }
+      });
+    });
+  })();
+
   /* ---------- Performance: lazy-load + async decode (all but hero) ---------- */
   document.querySelectorAll('img').forEach(function(img){
     if(img.classList.contains('kenburns')) return; // hero stays eager
@@ -218,7 +242,7 @@
       var id = a.getAttribute('href');
       if(id && id.charAt(0) === '#' && id.length > 1) links[id.slice(1)] = a;
     });
-    var sections = ['paintings','murals','restoration','about','contact']
+    var sections = ['graphics','paintings','murals','restoration','events','bio','contact']
       .map(function(id){ return document.getElementById(id); })
       .filter(Boolean);
     if(!sections.length) return;

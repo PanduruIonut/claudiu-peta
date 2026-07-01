@@ -3,11 +3,13 @@
 
   var DICT = {
     en: {
-      "doc.title.home":"Claudiu Peta — Painter · Muralist · Restorer",
+      "doc.title.home":"Claudiu Peta — Visual artist · Muralist · Restorer",
       "doc.title.shop":"Shop — Claudiu Peta",
 
-      "role":"Painter · Muralist · Restorer",
-      "nav.paintings":"Paintings",
+      "role":"Visual artist",
+      "nav.works":"Artworks",
+      "nav.graphics":"Graphics",
+      "nav.paintings":"Painting",
       "nav.murals":"Murals",
       "nav.restoration":"Restoration",
       "nav.about":"About",
@@ -24,7 +26,10 @@
 
       "intro":"I sign my work <em>PETA</em>. I paint surreal portraits where clouds and weather become a human face — on canvas and across whole buildings — and I bring old paintings and painted furniture back to life.",
 
-      "sec.paintings.h2":"Paintings",
+      "sec.graphics.h2":"Graphics",
+      "sec.graphics.meta":"Drawings & works on paper",
+      "sec.graphics.soon":"A selection of graphic works is coming soon.",
+      "sec.paintings.h2":"Painting",
       "sec.paintings.meta":"Acrylic on canvas · the 2DARK & VERSUS series",
       "sec.murals.h2":"Murals & Wall Art",
       "sec.murals.meta":"Facades, interiors & site-specific work",
@@ -55,7 +60,7 @@
       "contact.p":"Tell me about your wall, the painting you'd like, or a piece that needs care. For restorations, a photograph or two helps me give an honest first impression.",
       "contact.email":"Email the studio",
 
-      "footer.meta":"Painter · Muralist · Restorer · signed PETA",
+      "footer.meta":"Visual artist · Muralist · Restorer · signed PETA",
 
       "shop.eyebrow":"The Shop",
       "shop.h1":"Take a piece of the <em>sky</em> home.",
@@ -123,19 +128,25 @@
       "cv.updated":"Updated",
       "cv.education":"Education",
       "cv.exhibitions":"Selected exhibitions",
+      "cv.projects":"Selected projects",
+      "cv.grants":"Grants",
       "cv.commissions":"Selected commissions",
+      "cv.full":"The full CV, with press and complete project list, is in the PDF.",
       "contact.commission":"Commission via message or email",
+      "contact.phone":"Call",
       "shop.addCart":"Add to cart",
       "shop.enquire":"Enquire",
       "shop.originalNote":"Originals are sold by enquiry"
     },
 
     ro: {
-      "doc.title.home":"Claudiu Peta — Pictor · Muralist · Restaurator",
+      "doc.title.home":"Claudiu Peta — Artist vizual · Muralist · Restaurator",
       "doc.title.shop":"Magazin — Claudiu Peta",
 
-      "role":"Pictor · Muralist · Restaurator",
-      "nav.paintings":"Picturi",
+      "role":"Artist vizual",
+      "nav.works":"Lucrări",
+      "nav.graphics":"Grafică",
+      "nav.paintings":"Pictură",
       "nav.murals":"Murale",
       "nav.restoration":"Restaurare",
       "nav.about":"Despre",
@@ -152,7 +163,10 @@
 
       "intro":"Îmi semnez lucrările cu <em>PETA</em>. Pictez portrete suprarealiste în care norii și vremea devin un chip omenesc — pe pânză și pe clădiri întregi — și readuc la viață picturi vechi și mobilier pictat.",
 
-      "sec.paintings.h2":"Picturi",
+      "sec.graphics.h2":"Grafică",
+      "sec.graphics.meta":"Desene & lucrări pe hârtie",
+      "sec.graphics.soon":"O selecție de lucrări de grafică va apărea în curând.",
+      "sec.paintings.h2":"Pictură",
       "sec.paintings.meta":"Acrilic pe pânză · seriile 2DARK & VERSUS",
       "sec.murals.h2":"Murale & Artă Murală",
       "sec.murals.meta":"Fațade, interioare & lucrări in situ",
@@ -183,7 +197,7 @@
       "contact.p":"Spune-mi despre zidul tău, despre pictura pe care ți-o dorești sau despre o lucrare care are nevoie de îngrijire. Pentru restaurări, una-două fotografii mă ajută să-ți ofer o primă impresie sinceră.",
       "contact.email":"Scrie atelierului",
 
-      "footer.meta":"Pictor · Muralist · Restaurator · semnat PETA",
+      "footer.meta":"Artist vizual · Muralist · Restaurator · semnat PETA",
 
       "shop.eyebrow":"Magazinul",
       "shop.h1":"Ia o bucată de <em>cer</em> acasă.",
@@ -251,8 +265,12 @@
       "cv.updated":"Actualizat",
       "cv.education":"Educație",
       "cv.exhibitions":"Expoziții selectate",
+      "cv.projects":"Proiecte selectate",
+      "cv.grants":"Granturi",
       "cv.commissions":"Comenzi selectate",
+      "cv.full":"CV-ul complet, cu presă și lista integrală de proiecte, este în PDF.",
       "contact.commission":"Comandă prin mesaj sau email",
+      "contact.phone":"Sună",
       "shop.addCart":"Adaugă în coș",
       "shop.enquire":"Întreabă",
       "shop.originalNote":"Originalele se vând la cerere"

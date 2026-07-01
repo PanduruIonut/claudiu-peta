@@ -65,7 +65,9 @@ img{
   max-width:var(--maxw);margin:0 auto;padding:24px 44px;
   display:flex;align-items:center;justify-content:space-between;gap:20px;
 }
-.brand{display:flex;flex-direction:column;gap:4px;}
+.brand{display:flex;align-items:center;gap:13px;}
+.brand-mark{width:46px;height:46px;object-fit:contain;flex-shrink:0;display:block;mix-blend-mode:multiply;}
+.brand-text{display:flex;flex-direction:column;gap:4px;}
 .brand-name{
   font-family:'Archivo',sans-serif;font-weight:600;font-size:24px;
   letter-spacing:0.16em;text-transform:uppercase;line-height:1;color:var(--ink);
@@ -91,6 +93,34 @@ img{
 .nav a{position:relative;padding-bottom:2px;transition:color .2s ease;}
 .nav a:hover{color:var(--turquoise);}
 .nav-toggle{display:none;background:none;border:0;cursor:pointer;}
+
+/* Dropdown submenu (Artworks) */
+.nav-item{position:relative;display:flex;align-items:center;}
+.nav-sub-toggle{
+  background:none;border:0;cursor:pointer;font:inherit;color:inherit;
+  letter-spacing:inherit;text-transform:inherit;line-height:inherit;
+  padding:0 0 2px;display:inline-flex;align-items:center;gap:7px;
+}
+.nav-sub-toggle::after{
+  content:"";width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
+  transform:rotate(45deg) translateY(-1px);transition:transform .2s ease;
+}
+.nav-item.open .nav-sub-toggle::after{transform:rotate(-135deg) translateY(-1px);}
+.nav-sub-toggle:hover{color:var(--turquoise);}
+.subnav{
+  position:absolute;top:100%;left:-18px;min-width:196px;
+  background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  box-shadow:0 14px 34px rgba(var(--navy-grad),0.14);
+  padding:8px 0;display:flex;flex-direction:column;margin-top:10px;
+  opacity:0;visibility:hidden;transform:translateY(6px);
+  transition:opacity .18s ease,transform .18s ease,visibility .18s;z-index:60;
+}
+.nav-item.has-sub:hover .subnav,
+.nav-item.open .subnav{opacity:1;visibility:visible;transform:translateY(0);}
+.subnav a{padding:9px 20px 9px;letter-spacing:0.14em;white-space:nowrap;color:var(--ink-soft);}
+.subnav a:hover{color:var(--turquoise);background:var(--line-soft);}
+/* hover bridge so the menu doesn't close in the gap */
+.nav-item.has-sub::after{content:"";position:absolute;top:100%;left:0;right:0;height:12px;}
 
 /* HERO */
 .hero{position:relative;height:84vh;min-height:580px;overflow:hidden;background:var(--navy);}
@@ -131,6 +161,9 @@ img{
 .sec-head .meta{font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-soft);}
 
 /* PAINTINGS */
+.graphics{max-width:var(--maxw);margin:0 auto;padding:64px 44px 8px;}
+.section-soon{color:var(--ink-soft);font-size:15px;margin-top:20px;}
+.cv-full-note{margin-top:18px;font-size:12.5px;color:var(--ink-soft);font-style:italic;}
 .paintings{max-width:var(--maxw);margin:0 auto;padding:48px 44px 40px;}
 .masonry{column-width:300px;column-gap:22px;}
 .masonry .item{break-inside:avoid;margin:0 0 22px;}
@@ -302,6 +335,19 @@ a.event-title:hover{color:var(--turquoise);}
   }
   .nav.open{transform:translateY(0);}
   .nav a{display:block;width:100%;padding:14px 0;border-bottom:1px solid var(--line-soft);}
+  /* Dropdown becomes an inline accordion on mobile */
+  .nav-item{display:block;width:100%;}
+  .nav-sub-toggle{width:100%;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line-soft);}
+  .subnav{
+    position:static;left:auto;top:auto;min-width:0;margin-top:0;padding:0;
+    background:transparent;border:0;border-radius:0;box-shadow:none;
+    opacity:1;visibility:visible;transform:none;
+    max-height:0;overflow:hidden;transition:max-height .28s ease;
+  }
+  .nav-item.has-sub:hover .subnav{max-height:0;}
+  .nav-item.open .subnav{max-height:340px;}
+  .subnav a{padding:12px 0 12px 16px;}
+  .nav-item.has-sub::after{display:none;}
   .nav-toggle{display:block;width:28px;height:20px;position:relative;}
   .nav-toggle span{
     display:block;position:absolute;left:0;height:2px;width:100%;background:var(--ink);
@@ -315,7 +361,7 @@ a.event-title:hover{color:var(--turquoise);}
   .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
   .wrap, .hero-content, .murals-inner, .restoration, .about-inner,
-  .exhibited-content, .contact, .paintings, .footer-inner, .events{
+  .exhibited-content, .contact, .paintings, .graphics, .footer-inner, .events{
     padding-left:24px;padding-right:24px;
   }
   .hero-content{padding-top:44px;padding-bottom:44px;}

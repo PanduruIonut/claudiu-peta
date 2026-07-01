@@ -125,6 +125,8 @@
 
     plainSection("cv.education", cv.education);
     datedSection("cv.exhibitions", cv.exhibitions);
+    datedSection("cv.projects", cv.projects);
+    datedSection("cv.grants", cv.grants);
     plainSection("cv.commissions", cv.commissions);
   }
 
@@ -139,6 +141,14 @@
       aE.href = "mailto:" + cfg.email;
       liE.appendChild(aE);
       ul.appendChild(liE);
+    }
+
+    if(cfg.phone){
+      var liP = el("li", "contact-link contact-link-phone");
+      var aP = el("a", null, cfg.phone);
+      aP.href = "tel:" + String(cfg.phone).replace(/[^\d+]/g, "");
+      liP.appendChild(aP);
+      ul.appendChild(liP);
     }
 
     if(cfg.whatsapp && cfg.whatsapp.enabled && cfg.whatsapp.number){
@@ -194,6 +204,8 @@
     btns.forEach(function(b){
       if(b.__cpWired) return;
       b.__cpWired = true;
+      // If it's a real link to the PDF, let the browser open/download it.
+      if(b.tagName === "A" && b.getAttribute("href")) return;
       b.addEventListener("click", function(e){
         e.preventDefault();
         window.print();

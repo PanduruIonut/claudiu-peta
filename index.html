@@ -3,12 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title data-i18n="doc.title.home">Claudiu Peta — Painter · Muralist · Restorer</title>
+<title data-i18n="doc.title.home">Claudiu Peta — Visual artist · Muralist · Restorer</title>
 <meta name="description" content="Claudiu Peta (signed PETA) — surreal cloud-and-sky portraits on canvas, large-scale murals on walls and facades, and the careful restoration of old paintings and painted furniture.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/brand/mark.jpg">
 <link rel="stylesheet" href="styles.css">
 <noscript><style>body{opacity:1 !important;} .reveal{opacity:1 !important;transform:none !important;}</style></noscript>
 </head>
@@ -20,14 +21,23 @@
 <header class="site-header">
   <div class="header-inner">
     <a href="#top" class="brand">
-      <span class="brand-name">Claudiu Peta</span>
-      <span class="brand-role" data-i18n="role">Painter · Muralist · Restorer</span>
+      <img class="brand-mark" src="assets/brand/mark.jpg" alt="PETA" width="46" height="46">
+      <span class="brand-text">
+        <span class="brand-name">Claudiu Peta</span>
+        <span class="brand-role" data-i18n="role">Visual artist</span>
+      </span>
     </a>
     <div class="nav-wrap">
       <nav class="nav" id="primaryNav">
-        <a href="#paintings" data-i18n="nav.paintings">Paintings</a>
-        <a href="#murals" data-i18n="nav.murals">Murals</a>
-        <a href="#restoration" data-i18n="nav.restoration">Restoration</a>
+        <div class="nav-item has-sub">
+          <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-controls="worksSub" data-i18n="nav.works">Artworks</button>
+          <div class="subnav" id="worksSub">
+            <a href="#graphics" data-i18n="nav.graphics">Graphics</a>
+            <a href="#paintings" data-i18n="nav.paintings">Painting</a>
+            <a href="#murals" data-i18n="nav.murals">Murals</a>
+            <a href="#restoration" data-i18n="nav.restoration">Restoration</a>
+          </div>
+        </div>
         <a href="#events" data-i18n="nav.events">Events</a>
         <a href="#bio" data-i18n="nav.bio">BIO</a>
         <a href="shop.html" data-i18n="nav.shop">Shop</a>
@@ -52,7 +62,7 @@
   <div class="hero-vignette"></div>
   <div class="hero-content-wrap">
     <div class="hero-content">
-      <div class="hero-eyebrow" data-i18n="role">Painter · Muralist · Restorer</div>
+      <div class="hero-eyebrow" data-i18n="role">Visual artist</div>
       <h1 data-i18n-html="hero.h1">Faces made of <em>sky.</em></h1>
       <div class="hero-links">
         <a href="#paintings" data-i18n="hero.see">See the paintings</a>
@@ -66,6 +76,15 @@
 <!-- INTRO STATEMENT -->
 <section class="intro" aria-label="Introduction">
   <p data-i18n-html="intro">I sign my work <em>PETA</em>. I paint surreal portraits where clouds and weather become a human face — on canvas and across whole buildings — and I bring old paintings and painted furniture back to life.</p>
+</section>
+
+<!-- GRAPHICS -->
+<section id="graphics" class="graphics">
+  <div class="sec-head">
+    <h2 data-i18n="sec.graphics.h2">Graphics</h2>
+    <span class="meta" data-i18n="sec.graphics.meta">Drawings &amp; works on paper</span>
+  </div>
+  <p class="section-soon" data-i18n="sec.graphics.soon">A selection of graphic works is coming soon.</p>
 </section>
 
 <!-- PAINTINGS -->
@@ -146,7 +165,7 @@
 <!-- BIO -->
 <section id="bio" class="about">
   <div class="about-inner">
-    <img src="uploads/491919353_24118857947725996_1400614818195727863_n.jpg" alt="Claudiu Peta on the scaffold, painting">
+    <img src="assets/portrait.jpg" alt="Claudiu Peta">
     <div>
       <div class="about-label" data-i18n="bio.label">BIO</div>
       <p class="about-lead" data-i18n="about.lead">I work between three kinds of making: surreal portraits on canvas, large murals on walls and facades, and the quiet repair of old paintings and painted furniture.</p>
@@ -158,11 +177,12 @@
         <div class="cv-head">
           <h3 data-i18n="cv.heading">Curriculum Vitae</h3>
           <div class="cv-actions">
-            <button type="button" class="btn cv-download" data-cv-download data-i18n="cv.download">Download CV (PDF)</button>
+            <a class="btn cv-download" href="assets/cv/Claudiu-Peta-CV-2026.pdf" target="_blank" rel="noopener" download data-cv-download data-i18n="cv.download">Download CV (PDF)</a>
             <span class="cv-updated"><span data-i18n="cv.updated">Updated</span> <span data-cv-updated></span></span>
           </div>
         </div>
         <div id="cv-body" class="cv-body"></div>
+        <p class="cv-full-note" data-i18n="cv.full">The full CV, with press and complete project list, is in the PDF.</p>
       </div>
     </div>
   </div>
@@ -198,7 +218,7 @@
 <footer class="site-footer">
   <div class="footer-inner">
     <span class="footer-name">Claudiu Peta</span>
-    <span class="footer-meta" data-i18n="footer.meta">Painter · Muralist · Restorer · signed PETA</span>
+    <span class="footer-meta" data-i18n="footer.meta">Visual artist · Muralist · Restorer · signed PETA</span>
     <span class="footer-meta">© 2026</span>
   </div>
 </footer>
