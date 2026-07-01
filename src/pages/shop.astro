@@ -1,0 +1,109 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  page="shop"
+  titleKey="doc.title.shop"
+  titleText="Shop — Claudiu Peta"
+  description="Buy fine-art prints of Claudiu Peta's cloud-and-sky portraits (signed PETA), or enquire about the original acrylic paintings from the 2DARK & VERSUS series."
+  shop={true}
+  scripts={['config.js', 'i18n.js', 'app.js', 'features.js', 'shop.js']}
+>
+  <!-- SHOP HEADER -->
+  <section class="shop-head">
+    <div class="shop-head-inner">
+      <div class="eyebrow" data-i18n="shop.eyebrow">The Shop</div>
+      <h1 data-i18n-html="shop.h1">Take a piece of the <em>sky</em> home.</h1>
+      <p data-i18n="shop.intro">Original acrylic paintings from the 2DARK &amp; VERSUS series — each one unique — and fine-art prints of the cloud-and-sky portraits. Every work is sold by enquiry: add the pieces you love to your list and send it through, and I'll reply personally with price, availability, shipping, and framing.</p>
+      <div class="shop-tabs">
+        <a href="#prints" data-i18n="shop.tab.prints">Prints</a>
+        <a href="#originals" data-i18n="shop.tab.originals">Originals</a>
+        <a href="contact.html" data-i18n="shop.tab.commissions">Commissions</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRINTS (buyable via Snipcart) -->
+  <section id="prints" class="shop-section">
+    <div class="sec-head">
+      <h2 data-i18n="shop.sec.prints.h2">Fine-Art Prints</h2>
+      <span class="meta" data-i18n="shop.sec.prints.meta">Giclée on archival paper · open edition · three sizes</span>
+    </div>
+    <div class="shop-grid" id="printsGrid">
+      <noscript><p style="color:var(--ink-soft,#5A6072);">The shop requires JavaScript. Please enable it, or <a href="contact.html" style="border-bottom:1px solid var(--ink,#14233E);">contact the studio</a> directly.</p></noscript>
+    </div>
+  </section>
+
+  <!-- ORIGINALS (enquiry only) -->
+  <section class="shop-section alt">
+    <div class="shop-section-inner" id="originals">
+      <div class="sec-head">
+        <h2 data-i18n="shop.sec.originals.h2">Original Paintings</h2>
+        <span class="meta" data-i18n="shop.sec.originals.meta">Acrylic on canvas · one of a kind · signed PETA</span>
+      </div>
+      <p class="shop-note" data-i18n="shop.originalNote" style="font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--turquoise,#15625E);margin:-30px 0 38px;">Originals are sold by enquiry</p>
+      <div class="shop-grid" id="originalsGrid"></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="contact" style="padding-top:90px;padding-bottom:110px;">
+    <div class="contact-inner">
+      <div class="contact-eyebrow" data-i18n="shop.cta.eyebrow">Can't find it · want a commission</div>
+      <h2 data-i18n="shop.cta.h2">Looking for something specific?</h2>
+      <p data-i18n="shop.cta.p">If a piece is already sold, I can often make a print of it, or paint something new for your space. Tell me what you have in mind.</p>
+      <!-- features.js renders email / WhatsApp / Instagram / Facebook from CP_CONFIG -->
+      <div class="contact-links" data-contacts></div>
+      <div class="contact-links" style="margin-top:22px;">
+        <a href="contact.html" data-i18n="shop.cta.contact">Contact the studio</a>
+        <button type="button" class="link-btn" id="cartBtnFooter" data-i18n-html="shop.cta.review" style="background:none;border:0;cursor:pointer;font:inherit;font-size:13px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-soft,#5A6072);border-bottom:1px solid var(--line,#DCD7CC);padding:0 0 7px;">Review my list</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENQUIRY DRAWER (originals only — Web3Forms enquiry UX) -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Enquiry list">
+    <div class="cart-drawer-head">
+      <h3 id="drawerTitle" data-i18n="cart.title.list">Your enquiry list</h3>
+      <button class="cart-close" id="cartClose" data-i18n-attr="aria-label:cart.close" aria-label="Close">&times;</button>
+    </div>
+
+    <!-- LIST VIEW -->
+    <div class="cart-list-view" id="cartListView">
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-foot">
+        <p class="cart-note" data-i18n="cart.note">No payment is taken here. Send your list and I'll reply with price, availability and shipping for each piece.</p>
+        <button class="btn" id="toCheckout" data-i18n="cart.requestQuote">Request a quote</button>
+      </div>
+    </div>
+
+    <!-- CHECKOUT VIEW -->
+    <div class="checkout" id="checkoutView">
+      <form id="enquiryForm" class="cart-items" style="padding-top:22px;">
+        <button type="button" class="back-link" id="backToList" data-i18n="cart.back">&larr; Back to list</button>
+        <div class="field">
+          <label for="f-name" data-i18n="form.name">Your name *</label>
+          <input id="f-name" name="name" type="text" required autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="f-email" data-i18n="form.email">Email *</label>
+          <input id="f-email" name="email" type="email" required autocomplete="email" />
+        </div>
+        <div class="field">
+          <label for="f-phone" data-i18n="form.phone">Phone / WhatsApp (optional)</label>
+          <input id="f-phone" name="phone" type="tel" autocomplete="tel" />
+        </div>
+        <div class="field">
+          <label for="f-message" data-i18n="form.message">Message (optional)</label>
+          <textarea id="f-message" name="note" data-i18n-attr="placeholder:form.placeholder" placeholder="Framing, shipping destination, questions…"></textarea>
+        </div>
+        <input type="text" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+      </form>
+      <div class="cart-foot">
+        <button class="btn" id="sendEnquiry" form="enquiryForm" type="submit" data-i18n="form.send">Send enquiry</button>
+      </div>
+    </div>
+  </aside>
+</Base>

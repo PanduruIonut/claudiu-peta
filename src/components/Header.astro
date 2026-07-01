@@ -1,0 +1,54 @@
+---
+const { page = 'home', shop = false } = Astro.props;
+const artwork = ['graphics', 'paintings', 'murals', 'restoration'];
+const isArtwork = artwork.includes(page);
+const act = (p) => (page === p ? 'active' : undefined);
+---
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <img class="brand-mark" src="assets/brand/mark.jpg" alt="PETA" width="46" height="46" />
+      <span class="brand-text">
+        <span class="brand-name">Claudiu Peta</span>
+        <span class="brand-role" data-i18n="role">Visual artist</span>
+      </span>
+    </a>
+    <div class="nav-wrap">
+      <nav class="nav" id="primaryNav">
+        <div class="nav-item has-sub">
+          <button
+            type="button"
+            class:list={['nav-sub-toggle', { active: isArtwork }]}
+            aria-expanded="false"
+            aria-controls="worksSub"
+            data-i18n="nav.works">Artworks</button>
+          <div class="subnav" id="worksSub">
+            <a href="grafica.html" class={act('graphics')} data-i18n="nav.graphics">Graphics</a>
+            <a href="pictura.html" class={act('paintings')} data-i18n="nav.paintings">Painting</a>
+            <a href="murale.html" class={act('murals')} data-i18n="nav.murals">Murals</a>
+            <a href="restaurare.html" class={act('restoration')} data-i18n="nav.restoration">Restoration</a>
+          </div>
+        </div>
+        <a href="evenimente.html" class={act('events')} data-i18n="nav.events">Events</a>
+        <a href="bio.html" class={act('bio')} data-i18n="nav.bio">BIO</a>
+        <a href="shop.html" class={act('shop')} data-i18n="nav.shop">Shop</a>
+        <a href="contact.html" class={act('contact')} data-i18n="nav.contact">Contact</a>
+      </nav>
+      <div class="lang-toggle" role="group" data-i18n-attr="aria-label:lang.aria" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="ro">RO</button>
+      </div>
+      {shop && (
+        <button class="snipcart-checkout cart-btn" type="button" aria-label="Cart" title="Cart">
+          <svg class="cart-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <path d="M6 8h12l-1 12H7L6 8z" /><path d="M9 8a3 3 0 0 1 6 0" />
+          </svg>
+          <span class="snipcart-items-count cart-count"></span>
+        </button>
+      )}
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
