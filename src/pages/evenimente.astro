@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  page="events"
+  titleKey="doc.title.events"
+  titleText="Events — Claudiu Peta"
+  scripts={['config.js', 'events.js', 'i18n.js', 'app.js', 'features.js']}
+>
+  <section class="page-head">
+    <div class="eyebrow" data-i18n="events.eyebrow">Exhibitions &amp; events</div>
+    <h1 data-i18n="events.h2">Events</h1>
+    <p data-i18n="events.meta">Exhibitions, fairs &amp; live painting</p>
+  </section>
+
+  <section id="events" class="events" aria-label="Events">
+    <!-- features.js renders CP_EVENTS here (split upcoming / past) -->
+    <div id="events-list" class="events-list"></div>
+  </section>
+</Base>

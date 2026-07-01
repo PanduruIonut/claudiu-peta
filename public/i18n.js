@@ -5,6 +5,20 @@
     en: {
       "doc.title.home":"Claudiu Peta — Visual artist · Muralist · Restorer",
       "doc.title.shop":"Shop — Claudiu Peta",
+      "doc.title.graphics":"Graphics — Claudiu Peta",
+      "doc.title.paintings":"Painting — Claudiu Peta",
+      "doc.title.murals":"Murals — Claudiu Peta",
+      "doc.title.restoration":"Restoration — Claudiu Peta",
+      "doc.title.events":"Events — Claudiu Peta",
+      "doc.title.bio":"BIO — Claudiu Peta",
+      "doc.title.contact":"Contact — Claudiu Peta",
+
+      "home.explore":"Explore the work",
+      "home.view":"View",
+      "home.more":"More",
+      "home.soon":"Coming soon",
+      "home.contactCta":"Commissions, murals & restoration — start a conversation.",
+      "home.contactLink":"Get in touch",
 
       "role":"Visual artist",
       "nav.works":"Artworks",
@@ -142,6 +156,20 @@
     ro: {
       "doc.title.home":"Claudiu Peta — Artist vizual · Muralist · Restaurator",
       "doc.title.shop":"Magazin — Claudiu Peta",
+      "doc.title.graphics":"Grafică — Claudiu Peta",
+      "doc.title.paintings":"Pictură — Claudiu Peta",
+      "doc.title.murals":"Murale — Claudiu Peta",
+      "doc.title.restoration":"Restaurare — Claudiu Peta",
+      "doc.title.events":"Evenimente — Claudiu Peta",
+      "doc.title.bio":"BIO — Claudiu Peta",
+      "doc.title.contact":"Contact — Claudiu Peta",
+
+      "home.explore":"Explorează lucrările",
+      "home.view":"Vezi",
+      "home.more":"Mai mult",
+      "home.soon":"În curând",
+      "home.contactCta":"Comenzi, murale și restaurare — hai să vorbim.",
+      "home.contactLink":"Ia legătura",
 
       "role":"Artist vizual",
       "nav.works":"Lucrări",

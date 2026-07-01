@@ -1,0 +1,58 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const {
+  page = 'home',
+  titleKey = 'doc.title.home',
+  titleText = 'Claudiu Peta — Visual artist · Muralist · Restorer',
+  description = "Claudiu Peta (signed PETA) — surreal cloud-and-sky portraits on canvas, large-scale murals, and the careful restoration of old paintings and painted furniture.",
+  shop = false,
+  scripts = ['i18n.js', 'app.js'],
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-i18n={titleKey}>{titleText}</title>
+  <meta name="description" content={description} />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+  {shop && (
+    <>
+      <link rel="preconnect" href="https://app.snipcart.com" />
+      <link rel="preconnect" href="https://cdn.snipcart.com" />
+      <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.7.1/default/snipcart.css" />
+    </>
+  )}
+
+  <link rel="icon" href="assets/brand/mark.jpg" />
+  <link rel="stylesheet" href="styles.css" />
+  <noscript><style>{`body{opacity:1 !important;} .reveal{opacity:1 !important;transform:none !important;}`}</style></noscript>
+</head>
+<body data-page={page}>
+  <a id="top"></a>
+
+  <Header page={page} shop={shop} />
+
+  <slot />
+
+  <Footer />
+
+  {shop && (
+    <>
+      <div hidden id="snipcart" data-api-key="REPLACE_SNIPCART_PUBLIC_KEY" data-config-modal-style="side"></div>
+      <script async src="https://cdn.snipcart.com/themes/v3.7.1/default/snipcart.js" is:inline></script>
+    </>
+  )}
+
+  {scripts.map((s) => (
+    <script src={s} defer is:inline></script>
+  ))}
+</body>
+</html>

@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  page="contact"
+  titleKey="doc.title.contact"
+  titleText="Contact — Claudiu Peta"
+  scripts={['config.js', 'i18n.js', 'app.js', 'features.js']}
+>
+  <section id="contact" class="contact contact-page">
+    <div class="contact-inner">
+      <div class="contact-eyebrow" data-i18n="contact.eyebrow">Commissions · murals · restoration</div>
+      <h1 data-i18n="contact.h2">Let's begin a piece.</h1>
+      <p data-i18n="contact.p">Tell me about your wall, the painting you'd like, or a piece that needs care. For restorations, a photograph or two helps me give an honest first impression.</p>
+      <!-- features.js renders email / phone / WhatsApp / Instagram / Facebook from CP_CONFIG -->
+      <div class="contact-links" data-contacts></div>
+      <p class="contact-commission" data-i18n="contact.commission">Commission via message or email</p>
+    </div>
+  </section>
+</Base>

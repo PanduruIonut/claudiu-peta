@@ -293,10 +293,11 @@ a.event-title:hover{color:var(--turquoise);}
 .contact{max-width:var(--maxw);margin:0 auto;padding:132px 44px;}
 .contact-inner{text-align:center;max-width:900px;margin:0 auto;}
 .contact-eyebrow{font-size:12px;letter-spacing:0.3em;text-transform:uppercase;font-weight:600;color:var(--turquoise);margin-bottom:28px;}
-.contact h2{
+.contact h2,.contact h1{
   font-family:'Archivo',sans-serif;font-weight:300;
   font-size:clamp(38px,5.5vw,72px);line-height:1.04;letter-spacing:-0.02em;margin-bottom:44px;color:var(--ink);
 }
+.contact-page{padding-top:40px;}
 .contact p{
   font-family:'Archivo',sans-serif;font-weight:300;font-size:21px;line-height:1.6;
   color:var(--ink-soft);max-width:60ch;margin:0 auto 52px;
@@ -680,4 +681,76 @@ body.lb-locked{overflow:hidden;}
   .cv-print-area .cv-download{display:none !important;}
 
   .cv-print-area .cv-section{break-inside:avoid;page-break-inside:avoid;}
+}
+
+/* ============ MULTI-PAGE ADDITIONS ============ */
+
+/* Standalone page header (artwork / events / bio) */
+.page-head{max-width:var(--maxw);margin:0 auto;padding:72px 44px 6px;}
+.page-head .eyebrow{font-size:12px;letter-spacing:0.3em;text-transform:uppercase;font-weight:600;color:var(--turquoise);margin-bottom:16px;}
+.page-head h1{
+  font-family:'Archivo',sans-serif;font-weight:300;
+  font-size:clamp(34px,5vw,60px);line-height:1.05;letter-spacing:-0.02em;color:var(--ink);
+}
+.page-head p{
+  font-family:'Archivo',sans-serif;font-weight:300;font-size:19px;line-height:1.6;
+  color:var(--ink-soft);max-width:64ch;margin-top:16px;
+}
+
+/* Homepage: work cards */
+.work-cards-sec{max-width:var(--maxw);margin:0 auto;padding:20px 44px 40px;}
+.work-cards-head{margin-bottom:30px;}
+.section-eyebrow{font-size:12px;letter-spacing:0.3em;text-transform:uppercase;font-weight:600;color:var(--turquoise);}
+.work-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+.work-card{display:block;color:inherit;}
+.work-card-media{
+  position:relative;overflow:hidden;border-radius:3px;background:var(--line-soft);
+  aspect-ratio:4/5;
+}
+.work-card-media img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .6s cubic-bezier(.2,.7,.2,1);
+}
+.work-card:hover .work-card-media img{transform:scale(1.05);}
+.work-card-badge{
+  position:absolute;top:12px;left:12px;
+  font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;
+  color:var(--white);background:rgba(20,33,60,0.78);padding:5px 10px;border-radius:2px;
+}
+.work-card-cap{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-top:14px;}
+.work-card-title{
+  font-family:'Archivo',sans-serif;font-weight:500;font-size:17px;
+  letter-spacing:0.04em;color:var(--ink);
+}
+.work-card-view{
+  font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-soft);
+  border-bottom:1px solid var(--line);padding-bottom:3px;transition:color .2s ease,border-color .2s ease;
+}
+.work-card:hover .work-card-view{color:var(--turquoise);border-bottom-color:var(--turquoise);}
+
+/* Homepage: contact CTA band */
+.home-cta{
+  max-width:var(--maxw);margin:0 auto;padding:96px 44px 110px;text-align:center;
+}
+.home-cta-text{
+  font-family:'Archivo',sans-serif;font-weight:300;
+  font-size:clamp(26px,3.4vw,40px);line-height:1.2;letter-spacing:-0.01em;color:var(--ink);
+  max-width:24ch;margin:0 auto 30px;
+}
+.home-cta-link{
+  display:inline-block;font-size:13px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);
+  border-bottom:1px solid var(--ink);padding-bottom:7px;transition:color .2s ease,border-color .2s ease;
+}
+.home-cta-link:hover{color:var(--turquoise);border-bottom-color:var(--turquoise);}
+
+@media (max-width:860px){
+  .page-head{padding:52px 24px 4px;}
+  .work-cards-sec{padding:12px 24px 32px;}
+  .work-cards{grid-template-columns:repeat(2,1fr);gap:16px;}
+  .home-cta{padding:72px 24px 84px;}
+}
+@media (max-width:460px){
+  .work-cards{grid-template-columns:1fr 1fr;gap:12px;}
+  .work-card-title{font-size:15px;}
+  .work-card-view{display:none;}
 }

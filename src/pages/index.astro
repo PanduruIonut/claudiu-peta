@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base page="home" titleKey="doc.title.home" titleText="Claudiu Peta — Visual artist · Muralist · Restorer">
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Hero">
+    <div class="hero-media"><img src="uploads/486079333_23886889030922890_1069040500701748557_n.jpg" alt="Cloud-and-sky mural by Claudiu Peta" class="kenburns" fetchpriority="high" /></div>
+    <div class="hero-grad-1"></div>
+    <div class="hero-grad-2"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-content-wrap">
+      <div class="hero-content">
+        <div class="hero-eyebrow" data-i18n="role">Visual artist</div>
+        <h1 data-i18n-html="hero.h1">Faces made of <em>sky.</em></h1>
+        <div class="hero-links">
+          <a href="pictura.html" data-i18n="hero.see">See the paintings</a>
+          <a href="shop.html" data-i18n="hero.shop">Shop original works</a>
+          <a href="contact.html" class="secondary" data-i18n="hero.commission">Commission a work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="intro" aria-label="Introduction">
+    <p data-i18n-html="intro">I sign my work <em>PETA</em>. I paint surreal portraits where clouds and weather become a human face — on canvas and across whole buildings — and I bring old paintings and painted furniture back to life.</p>
+  </section>
+
+  <!-- WORK CARDS -->
+  <section class="work-cards-sec" aria-label="Sections">
+    <div class="work-cards-head">
+      <span class="section-eyebrow" data-i18n="home.explore">Explore the work</span>
+    </div>
+    <div class="work-cards">
+      <a class="work-card" href="grafica.html" data-reveal>
+        <div class="work-card-media">
+          <img src="uploads/489288843_1221458849986181_3146628413477019959_n.jpg" alt="" />
+          <span class="work-card-badge" data-i18n="home.soon">Coming soon</span>
+        </div>
+        <div class="work-card-cap"><span class="work-card-title" data-i18n="nav.graphics">Graphics</span><span class="work-card-view" data-i18n="home.view">View</span></div>
+      </a>
+      <a class="work-card" href="pictura.html" data-reveal="d1">
+        <div class="work-card-media"><img src="uploads/489916025_1221463949985671_3031214626376531084_n.jpg" alt="" /></div>
+        <div class="work-card-cap"><span class="work-card-title" data-i18n="nav.paintings">Painting</span><span class="work-card-view" data-i18n="home.view">View</span></div>
+      </a>
+      <a class="work-card" href="murale.html" data-reveal="d2">
+        <div class="work-card-media"><img src="uploads/488057390_1214576647341068_4113730977357821985_n.jpg" alt="" /></div>
+        <div class="work-card-cap"><span class="work-card-title" data-i18n="nav.murals">Murals</span><span class="work-card-view" data-i18n="home.view">View</span></div>
+      </a>
+      <a class="work-card" href="restaurare.html" data-reveal="d3">
+        <div class="work-card-media"><img src="uploads/571032468_1400555535409844_8324277763429514244_n.jpg" alt="" /></div>
+        <div class="work-card-cap"><span class="work-card-title" data-i18n="nav.restoration">Restoration</span><span class="work-card-view" data-i18n="home.view">View</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- EXHIBITIONS BAND -->
+  <section class="exhibited" aria-label="Exhibited">
+    <div class="exhibited-media">
+      <img src="uploads/492678241_24109865288625262_278128664145362783_n.jpg" alt="Visitors viewing Claudiu Peta's work at an exhibition" />
+      <div class="exhibited-grad"></div>
+      <div class="exhibited-content-wrap">
+        <div class="exhibited-content">
+          <div class="exhibited-eyebrow" data-i18n="exhibited.eyebrow">In the room</div>
+          <h2 data-i18n="exhibited.h2">Shown in galleries, painted in the open, kept in homes.</h2>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section class="home-cta" aria-label="Contact">
+    <p class="home-cta-text" data-i18n="home.contactCta">Commissions, murals &amp; restoration — start a conversation.</p>
+    <a class="home-cta-link" href="contact.html" data-i18n="home.contactLink">Get in touch</a>
+  </section>
+
+</Base>
