@@ -7,6 +7,7 @@
   "use strict";
 
   var I18N = window.I18N || null;
+  var REDUCE = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 
   function lang(){ return I18N ? I18N.lang : "en"; }
   function t(key){ return I18N ? I18N.t(key) : key; }
@@ -34,51 +35,97 @@
     clear(list);
 
     var data = Array.isArray(window.CP_EVENTS) ? window.CP_EVENTS : [];
-    var upcoming = data.filter(function(e){ return e && e.status === "upcoming"; });
-    var past     = data.filter(function(e){ return e && e.status === "past"; });
-
-    if(!upcoming.length && !past.length){
+    if(!data.length){
       list.appendChild(el("p", "events-empty", t("events.none")));
       return;
     }
 
-    function group(title, items){
-      var section = el("div", "events-group");
-      section.appendChild(el("h3", "events-group-title", title));
-      if(!items.length){
-        section.appendChild(el("p", "events-empty", t("events.none")));
-      } else {
-        var ul = el("ul", "events-items");
-        items.forEach(function(ev){
-          var li = el("li", "event");
-          var head = el("div", "event-head");
-          var titleText = L(ev.title);
-          if(ev.url){
-            var a = el("a", "event-title", titleText);
-            a.href = ev.url;
-            a.target = "_blank";
-            a.rel = "noopener";
-            head.appendChild(a);
-          } else {
-            head.appendChild(el("span", "event-title", titleText));
-          }
-          var dt = L(ev.date);
-          if(dt) head.appendChild(el("span", "event-date", dt));
-          li.appendChild(head);
+    // One chronological timeline, newest first: upcoming shows lead, then past.
+    // (Entries keep their authored order within each status bucket.)
+    var upcoming = data.filter(function(e){ return e && e.status === "upcoming"; });
+    var past     = data.filter(function(e){ return e && e.status !== "upcoming"; });
+    var ordered  = upcoming.concat(past);
 
-          var venue = L(ev.venue);
-          if(venue) li.appendChild(el("p", "event-venue", venue));
-          var note = L(ev.note);
-          if(note) li.appendChild(el("p", "event-note", note));
-          ul.appendChild(li);
-        });
-        section.appendChild(ul);
+    function entry(ev, i){
+      var isUp = ev.status === "upcoming";
+      var side = (i % 2 === 0) ? "left" : "right";
+      var art = el("article", "tl-entry " + side + (isUp ? " is-upcoming" : ""));
+
+      // Spine marker
+      var marker = el("div", "tl-marker");
+      marker.appendChild(el("span", "tl-dot"));
+      art.appendChild(marker);
+
+      // Card
+      var titleText = L(ev.title);
+      var cardEl = el("div", "tl-card");
+
+      if(ev.image){
+        var fig = el("figure", "tl-media");
+        var img = el("img");
+        img.src = ev.image;
+        img.alt = titleText;
+        img.loading = "lazy";
+        if(ev.focus) img.style.objectPosition = ev.focus;
+        fig.appendChild(img);
+        cardEl.appendChild(fig);
       }
-      return section;
+
+      var body = el("div", "tl-body");
+      var head = el("div", "tl-head");
+      var dt = L(ev.date);
+      if(dt) head.appendChild(el("span", "tl-year", dt));
+      if(isUp) head.appendChild(el("span", "tl-badge", t("events.upcoming")));
+      body.appendChild(head);
+
+      if(ev.url){
+        var a = el("a", "event-title", titleText);
+        a.href = ev.url; a.target = "_blank"; a.rel = "noopener";
+        body.appendChild(a);
+      } else {
+        body.appendChild(el("span", "event-title", titleText));
+      }
+      var venue = L(ev.venue);
+      if(venue) body.appendChild(el("p", "event-venue", venue));
+      var note = L(ev.note);
+      if(note) body.appendChild(el("p", "event-note", note));
+
+      cardEl.appendChild(body);
+      art.appendChild(cardEl);
+
+      // Scroll reveal: slide in from the entry's side (uses app.js reveal system).
+      if(!REDUCE && typeof window.CPReveal === "function"){
+        window.CPReveal(art, (i % 2 === 1) ? "d1" : "");
+      }
+      return art;
     }
 
-    list.appendChild(group(t("events.upcoming"), upcoming));
-    list.appendChild(group(t("events.past"), past));
+    var timeline = el("div", "timeline");
+    timeline.appendChild(el("span", "tl-progress")); // scroll-driven spine fill
+    ordered.forEach(function(ev, i){ timeline.appendChild(entry(ev, i)); });
+    list.appendChild(timeline);
+    updateTimelineProgress();
+  }
+
+  /* Spine fill that tracks scroll position through the timeline. */
+  function updateTimelineProgress(){
+    var tl = document.querySelector(".timeline");
+    if(!tl) return;
+    var fill = tl.querySelector(".tl-progress");
+    if(!fill) return;
+    if(REDUCE){ fill.style.height = "100%"; return; }
+    var rect = tl.getBoundingClientRect();
+    var anchor = window.innerHeight * 0.55;           // "active" line down the viewport
+    var p = (anchor - rect.top) / (rect.height || 1); // 0 at top of timeline, 1 at bottom
+    p = Math.max(0, Math.min(1, p));
+    fill.style.height = (p * 100).toFixed(2) + "%";
+  }
+
+  var tlTicking = false;
+  function onTimelineScroll(){
+    if(tlTicking) return;
+    tlTicking = true;
+    window.requestAnimationFrame(function(){ updateTimelineProgress(); tlTicking = false; });
   }
 
   /* ---------- CV ---------- */
@@ -224,6 +271,10 @@
     renderAll();
     wireCvDownload();
     document.addEventListener("cp:langchange", renderAll);
+    if(!REDUCE){
+      window.addEventListener("scroll", onTimelineScroll, { passive: true });
+      window.addEventListener("resize", onTimelineScroll, { passive: true });
+    }
   }
 
   if(document.readyState === "loading"){

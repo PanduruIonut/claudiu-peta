@@ -190,40 +190,94 @@ img{
 .resto-grid img{width:100%;height:auto;border:1px solid var(--line);}
 .resto-grid .caption{margin-top:14px;}
 
-/* ============ EVENTS ============ */
-.events{max-width:var(--maxw);margin:0 auto;padding:128px 44px;}
-.events-list{
-  display:grid;grid-template-columns:1fr 1fr;gap:56px;
+/* ============ EVENTS (timeline) ============ */
+.events{max-width:var(--maxw);margin:0 auto;padding:88px 44px 120px;}
+.events-empty{font-size:14px;color:var(--ink-soft);padding:8px 0;letter-spacing:0.02em;}
+
+.timeline{position:relative;max-width:1080px;margin:0 auto;}
+/* central spine */
+.timeline::before{
+  content:"";position:absolute;top:6px;bottom:6px;left:50%;transform:translateX(-50%);
+  width:2px;background:var(--line);
 }
-.events-group{min-width:0;}
-.events-group-title{
-  font-size:12px;letter-spacing:0.28em;text-transform:uppercase;font-weight:600;color:var(--turquoise);
-  padding-bottom:16px;margin-bottom:8px;border-bottom:1px solid var(--line);
+
+.tl-entry{position:relative;width:50%;box-sizing:border-box;padding:0 52px 64px;}
+.tl-entry:last-child{padding-bottom:0;}
+.tl-entry.left{left:0;}
+.tl-entry.right{left:50%;}
+
+/* dot on the spine */
+.tl-marker{position:absolute;top:8px;width:100%;left:0;pointer-events:none;}
+.tl-dot{
+  position:absolute;top:0;width:15px;height:15px;border-radius:50%;
+  background:var(--bg);border:3px solid var(--ink-soft);box-sizing:border-box;
 }
-.events-items{list-style:none;}
-.event{
-  padding:24px 0;border-bottom:1px solid var(--line-soft);
+.tl-entry.left .tl-dot{right:-8px;}
+.tl-entry.right .tl-dot{left:-8px;}
+.tl-entry.is-upcoming .tl-dot{border-color:var(--turquoise);background:var(--turquoise);}
+
+/* card */
+.tl-card{
+  background:var(--surface);border:1px solid var(--line);border-radius:4px;overflow:hidden;
+  box-shadow:0 10px 30px rgba(var(--navy-grad),0.06);
+  transition:transform .35s ease,box-shadow .35s ease;
 }
-.event:last-child{border-bottom:0;}
-.event-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;}
-.event-title{
-  font-family:'Archivo',sans-serif;font-weight:500;font-size:20px;line-height:1.25;letter-spacing:-0.01em;color:var(--ink);
+.tl-card:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(var(--navy-grad),0.11);}
+.tl-media{position:relative;margin:0;overflow:hidden;background:var(--line-soft);aspect-ratio:4/3;}
+.tl-media img{
+  width:100%;height:100%;object-fit:cover;object-position:50% 35%;display:block;
+  transition:transform .6s cubic-bezier(.2,.7,.2,1);
 }
-a.event-title{transition:color .2s ease;}
-a.event-title:hover{color:var(--turquoise);}
-.event-date{
-  font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap;
+.tl-card:hover .tl-media img{transform:scale(1.04);}
+
+.tl-body{padding:22px 24px 26px;}
+.tl-head{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap;}
+.tl-year{
+  font-family:'Archivo',sans-serif;font-weight:600;font-size:22px;letter-spacing:0.02em;
+  color:var(--turquoise);line-height:1;
 }
-.event-venue{font-size:14px;line-height:1.5;color:var(--ink-soft);margin-top:8px;}
-.event-note{font-size:13px;line-height:1.55;color:var(--ink-soft);margin-top:6px;}
-.events-empty{font-size:14px;color:var(--ink-soft);padding:24px 0;letter-spacing:0.02em;}
-/* status badge (optional, spec-named) */
-.event-status{
-  display:inline-block;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;
-  padding:3px 9px;border-radius:2px;border:1px solid var(--line);color:var(--ink-soft);
+.tl-badge{
+  font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;
+  color:var(--white);background:var(--turquoise);padding:4px 10px;border-radius:2px;
 }
-.event-status.upcoming{background:var(--turquoise);border-color:var(--turquoise);color:var(--white);}
-.event-status.past{background:transparent;}
+.tl-body .event-title{
+  font-family:'Archivo',sans-serif;font-weight:500;font-size:19px;line-height:1.28;letter-spacing:-0.01em;
+  color:var(--ink);display:block;
+}
+.tl-body a.event-title{transition:color .2s ease;}
+.tl-body a.event-title:hover{color:var(--turquoise);}
+.tl-body .event-venue{font-size:14px;line-height:1.5;color:var(--ink-soft);margin-top:11px;}
+.tl-body .event-note{font-size:13px;line-height:1.55;color:var(--ink-soft);margin-top:6px;}
+
+/* Scroll-driven spine fill (turquoise line grows as you scroll the timeline) */
+.tl-progress{
+  position:absolute;top:6px;left:50%;transform:translateX(-50%);
+  width:2px;height:0;background:var(--turquoise);
+}
+
+/* Entries slide in from their side (registered via app.js reveal system) */
+.tl-entry.left.reveal{transform:translateX(-40px);}
+.tl-entry.right.reveal{transform:translateX(40px);}
+.tl-entry.reveal.in{transform:none;}     /* keep last: resets both directions */
+
+/* Dot pops in when its entry reveals */
+.tl-entry.reveal .tl-dot{transform:scale(0);transition:transform .5s cubic-bezier(.34,1.56,.64,1) .12s;}
+.tl-entry.reveal.in .tl-dot{transform:scale(1);}
+
+/* Tablet & mobile: single left-aligned spine, all cards to the right */
+@media (max-width:820px){
+  .events{padding:56px 22px 84px;}
+  .timeline{max-width:560px;}
+  .timeline::before{left:9px;}
+  .tl-progress{left:9px;transform:none;}
+  .tl-entry,.tl-entry.left,.tl-entry.right{width:100%;left:0;padding:0 0 40px 46px;}
+  .tl-marker{left:0;width:auto;}
+  .tl-entry.left .tl-dot,.tl-entry.right .tl-dot{left:2px;right:auto;}
+  .tl-year{font-size:20px;}
+  /* stacked cards rise instead of sliding sideways (avoids horizontal shift) */
+  .tl-entry.left.reveal,.tl-entry.right.reveal{transform:translateY(28px);}
+  .tl-entry.reveal.in{transform:none;}
+}
 
 /* ABOUT / BIO (dark navy) */
 .about{background:var(--navy);color:var(--on-navy);}
