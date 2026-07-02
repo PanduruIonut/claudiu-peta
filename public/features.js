@@ -1,7 +1,7 @@
-/* features.js — additive rendering for Events, CV, and Contact/social blocks.
+/* features.js, additive rendering for Events, CV, and Contact/social blocks.
    Vanilla, defer-safe. Runs after i18n.js (needs window.I18N) and after the
    data files (window.CP_EVENTS, window.CP_CV) on the pages that load them.
-   Every selector is guarded — these containers exist only on some pages.
+   Every selector is guarded, these containers exist only on some pages.
    Re-renders on the 'cp:langchange' event. Does NOT touch app.js. */
 (function(){
   "use strict";
@@ -136,12 +136,9 @@
 
     var cv = window.CP_CV || {};
 
-    if(cv.updated){
-      var meta = el("p", "cv-updated");
-      meta.appendChild(el("span", "cv-updated-label", t("cv.updated") + ": "));
-      meta.appendChild(document.createTextNode(cv.updated));
-      body.appendChild(meta);
-    }
+    // Fill the "Updated <date>" label in the CV header (empty in markup).
+    var upd = document.querySelector("[data-cv-updated]");
+    if(upd) upd.textContent = cv.updated || "";
 
     function plainSection(titleKey, items){
       if(!Array.isArray(items) || !items.length) return;

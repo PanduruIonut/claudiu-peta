@@ -279,50 +279,55 @@ img{
   .tl-entry.reveal.in{transform:none;}
 }
 
-/* ABOUT / BIO (dark navy) */
-.about{background:var(--navy);color:var(--on-navy);}
+/* ABOUT / BIO (light — soft white panel on the grey page) */
+.about{background:var(--surface);color:var(--ink);}
 .about-inner{
-  max-width:var(--maxw);margin:0 auto;padding:128px 44px;
-  display:grid;grid-template-columns:0.85fr 1.15fr;gap:88px;align-items:start;
+  max-width:var(--maxw);margin:0 auto;padding:104px 44px 116px;
 }
-.about-inner img{width:100%;height:auto;border-radius:2px;}
+.about-top{
+  display:grid;grid-template-columns:0.82fr 1.18fr;gap:80px;align-items:center;
+}
+.about-portrait{
+  width:100%;height:auto;border-radius:2px;aspect-ratio:4/5;object-fit:cover;object-position:50% 28%;
+}
 .about-label{
-  font-size:14px;letter-spacing:0.34em;text-transform:uppercase;font-weight:600;color:var(--on-navy);
-  border-bottom:1px solid var(--on-navy-line);padding-bottom:20px;margin-bottom:44px;
+  font-size:14px;letter-spacing:0.34em;text-transform:uppercase;font-weight:600;color:var(--ink);
+  border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:44px;
 }
 .about-lead{
   font-family:'Archivo',sans-serif;font-weight:300;
-  font-size:clamp(22px,2.6vw,32px);line-height:1.45;margin-bottom:30px;letter-spacing:-0.01em;color:var(--on-navy);
+  font-size:clamp(22px,2.6vw,32px);line-height:1.45;margin-bottom:30px;letter-spacing:-0.01em;color:var(--ink);
 }
 .about-body{
   font-family:'Archivo',sans-serif;font-weight:300;font-size:19px;line-height:1.65;
-  color:var(--on-navy-soft);max-width:62ch;
+  color:var(--ink-soft);max-width:62ch;
 }
-.about-sign{font-family:'Archivo',sans-serif;font-style:italic;font-weight:400;font-size:28px;margin-top:40px;color:var(--on-navy);}
+.about-sign{font-family:'Archivo',sans-serif;font-style:italic;font-weight:400;font-size:28px;margin-top:40px;color:var(--turquoise);}
 
-/* ============ CV (inside BIO, dark navy on screen) ============ */
-.cv{margin-top:56px;border-top:1px solid var(--on-navy-line);padding-top:44px;}
+/* ============ CV (inside BIO, light) ============ */
+.cv{margin-top:88px;border-top:1px solid var(--line);padding-top:52px;}
 .cv-head{
-  display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:28px;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:44px;
 }
 .cv-head h3{
-  font-size:13px;letter-spacing:0.28em;text-transform:uppercase;font-weight:600;color:var(--on-navy);
+  font-size:15px;letter-spacing:0.28em;text-transform:uppercase;font-weight:600;color:var(--ink);
 }
 .cv-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
-.cv-updated{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--on-navy-soft);}
-.cv-updated-label{color:var(--on-navy-soft);}
-.cv-body{display:flex;flex-direction:column;gap:32px;}
-.cv-body > .cv-updated{order:-1;margin-bottom:-8px;}
-.cv-section{}
+.cv-updated{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-soft);}
+.cv-updated-label{color:var(--ink-soft);}
+/* Two-column flow so the full-width CV uses the space (sections never split). */
+.cv-body{columns:2;column-gap:72px;}
+.cv-section{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;margin:0 0 40px;display:inline-block;width:100%;}
 .cv-section-title{
-  font-size:11px;letter-spacing:0.24em;text-transform:uppercase;font-weight:600;color:var(--on-navy);
-  margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--on-navy-line);
+  font-size:11px;letter-spacing:0.24em;text-transform:uppercase;font-weight:600;color:var(--turquoise);
+  margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--line);
 }
-.cv-list{list-style:none;display:flex;flex-direction:column;gap:12px;}
-.cv-item{font-size:15px;line-height:1.55;color:var(--on-navy-soft);}
+.cv-list{list-style:none;display:flex;flex-direction:column;gap:13px;}
+.cv-item{font-size:15px;line-height:1.55;color:var(--ink-soft);}
 .cv-list-dated .cv-item-dated{display:flex;gap:18px;align-items:baseline;}
-.cv-year{font-size:12px;letter-spacing:0.1em;color:var(--on-navy);font-weight:600;min-width:48px;flex-shrink:0;}
+.cv-year{font-size:12px;letter-spacing:0.1em;color:var(--turquoise);font-weight:600;min-width:48px;flex-shrink:0;}
 .cv-text{flex:1;}
+.cv-full-note{color:var(--ink-soft);}
 /* CV download button: inline, not full-width like the shop .btn */
 .cv-download{width:auto;}
 
@@ -426,7 +431,10 @@ img{
   .restoration{padding:80px 24px;}
   .events{padding:80px 24px;}
   .events-list{grid-template-columns:1fr;gap:48px;}
-  .about-inner{grid-template-columns:1fr;gap:44px;padding:80px 24px;}
+  .about-inner{padding:80px 24px;}
+  .about-top{grid-template-columns:1fr;gap:40px;align-items:start;}
+  .about-portrait{max-width:360px;}
+  .cv-body{columns:1;}
   .contact{padding:88px 24px;}
 
   .sec-head{align-items:flex-start;}

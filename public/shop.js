@@ -2,11 +2,11 @@
   "use strict";
 
   /* =====================================================================
-   *  CONFIG — replace before going live
+   *  CONFIG, replace before going live
    *  1. WEB3FORMS_KEY: free key at https://web3forms.com, tied to the
-   *     studio's inbox — this is where ORIGINAL-painting enquiries land.
+   *     studio's inbox, this is where ORIGINAL-painting enquiries land.
    *  2. STUDIO_EMAIL: shown to the visitor as a fallback contact.
-   *  3. PRINT_PRICE: fixed Snipcart price (RON) for every print — TODO real.
+   *  3. PRINT_PRICE: fixed Snipcart price (RON) for every print, TODO real.
    *  Snipcart public API key lives in shop.html (#snipcart data-api-key).
    * ===================================================================== */
   var WEB3FORMS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY"; // TODO real Web3Forms key
@@ -18,7 +18,7 @@
   /* ---------- i18n helper ---------- */
   function t(key){ return (window.I18N && window.I18N.t(key)) || key; }
 
-  /* ---------- Catalogue (16 works — shared with the portfolio) ---------- */
+  /* ---------- Catalogue (16 works, shared with the portfolio) ---------- */
   var WORKS = [
     { id:"howl",        title:"The Howl",                          src:"uploads/489916025_1221463949985671_3031214626376531084_n.jpg" },
     { id:"glacial",     title:"Glacial Emotion",       year:2019,  src:"uploads/488933954_1221462866652446_1769582109575111419_n.jpg" },
@@ -38,7 +38,7 @@
     { id:"morethan",    title:"More than perfect",     year:2023,  src:"uploads/489887650_1221184716680261_8634085307208487951_n.jpg" }
   ];
 
-  // Print sizes — drive both the visible note and Snipcart's custom-field options.
+  // Print sizes, drive both the visible note and Snipcart's custom-field options.
   var PRINT_SIZE_CODES = ["A3", "A2", "A1"];
 
   function originalMeta(w){ return t("prod.medium") + (w.year ? " · " + w.year : ""); }
@@ -52,13 +52,13 @@
   }
 
   /* =====================================================================
-   *  PRINTS — buyable via Snipcart (fixed price, RON)
+   *  PRINTS, buyable via Snipcart (fixed price, RON)
    * ===================================================================== */
   function buildPrintCard(w){
     var card = el("div","product");
 
     var media = el("div","product-media");
-    var img = el("img"); img.src = w.src; img.alt = w.title + " — fine-art print";
+    var img = el("img"); img.src = w.src; img.alt = w.title + ", fine-art print";
     media.appendChild(img);
     var tag = el("span","product-tag", t("prod.tag.print"));
     media.appendChild(tag);
@@ -72,11 +72,11 @@
     body.appendChild(title); body.appendChild(meta); body.appendChild(price);
 
     var foot = el("div","product-foot");
-    // Snipcart add-to-cart button — Size handled by Snipcart's custom field.
+    // Snipcart add-to-cart button, Size handled by Snipcart's custom field.
     var btn = el("button","snipcart-add-item btn", t("shop.addCart"));
     btn.type = "button";
     btn.setAttribute("data-item-id", "print-" + w.id);
-    btn.setAttribute("data-item-name", w.title + " — Print"); // language-stable for Snipcart
+    btn.setAttribute("data-item-name", w.title + ", Print"); // language-stable for Snipcart
     btn.setAttribute("data-item-price", PRINT_PRICE);          // TODO real price (RON)
     btn.setAttribute("data-item-url", "/shop.html");
     btn.setAttribute("data-item-image", w.src);
@@ -97,7 +97,7 @@
   }
 
   /* =====================================================================
-   *  ORIGINALS — enquiry only (Web3Forms drawer, no payment)
+   *  ORIGINALS, enquiry only (Web3Forms drawer, no payment)
    * ===================================================================== */
   var i18nUpdaters = [];
 
@@ -242,7 +242,7 @@
 
   function syncAll(){
     renderDrawer();
-    // Reflect enquiry count on the footer "Review my list" trigger (NOT .cart-count — that is Snipcart's).
+    // Reflect enquiry count on the footer "Review my list" trigger (NOT .cart-count, that is Snipcart's).
     var footBtn = document.getElementById("cartBtnFooter");
     if(footBtn){
       var base = t("shop.cta.review");
@@ -262,7 +262,7 @@
     var lines = cart.map(function(i){
       return "- [ORIGINAL] " + i.title + (i.year ? " (" + i.year + ")" : "");
     });
-    return "Enquiry — " + cart.length + " original(s):\n\n" + lines.join("\n");
+    return "Enquiry, " + cart.length + " original(s):\n\n" + lines.join("\n");
   }
 
   function initCheckout(){
@@ -293,7 +293,7 @@
       var qty = cart.length;
       var payload = {
         access_key: WEB3FORMS_KEY,
-        subject: "New original-painting enquiry — Claudiu Peta (" + qty + " item" + (qty>1?"s":"") + ")",
+        subject: "New original-painting enquiry, Claudiu Peta (" + qty + " item" + (qty>1?"s":"") + ")",
         from_name: name,
         name: name,
         email: email,

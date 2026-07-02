@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 <Base
   page="bio"
   titleKey="doc.title.bio"
-  titleText="BIO — Claudiu Peta"
+  titleText="BIO, Claudiu Peta"
   scripts={['config.js', 'cv.js', 'i18n.js', 'app.js', 'features.js']}
 >
   <section class="page-head">
@@ -15,24 +15,26 @@ import Base from '../layouts/Base.astro';
 
   <section id="bio" class="about">
     <div class="about-inner">
-      <img src="assets/portrait.jpg" alt="Claudiu Peta" />
-      <div>
-        <p class="about-lead" data-i18n="about.lead">I work between three kinds of making: surreal portraits on canvas, large murals on walls and facades, and the quiet repair of old paintings and painted furniture.</p>
-        <p class="about-body" data-i18n="about.body">Clouds and weather keep turning into faces in my work — a way of painting an inner life onto the sky. The same patience and respect for material that a mural needs is what an old, damaged canvas asks for too. I take a limited number of commissions and conservation projects so each can be given the time it deserves.</p>
-        <div class="about-sign">Claudiu Peta</div>
-
-        <!-- CV block — features.js fills #cv-body -->
-        <div class="cv cv-print-area">
-          <div class="cv-head">
-            <h3 data-i18n="cv.heading">Curriculum Vitae</h3>
-            <div class="cv-actions">
-              <a class="btn cv-download" href="assets/cv/Claudiu-Peta-CV-2026.pdf" target="_blank" rel="noopener" download data-cv-download data-i18n="cv.download">Download CV (PDF)</a>
-              <span class="cv-updated"><span data-i18n="cv.updated">Updated</span> <span data-cv-updated></span></span>
-            </div>
-          </div>
-          <div id="cv-body" class="cv-body"></div>
-          <p class="cv-full-note" data-i18n="cv.full">The full CV, with press and complete project list, is in the PDF.</p>
+      <div class="about-top">
+        <img class="about-portrait" src="assets/portrait.jpg" alt="Claudiu Peta" />
+        <div class="about-copy">
+          <p class="about-lead" data-i18n="about.lead">I work between three kinds of making: surreal portraits on canvas, large murals on walls and facades, and the quiet repair of old paintings and painted furniture.</p>
+          <p class="about-body" data-i18n="about.body">Clouds and weather keep turning into faces in my work, a way of painting an inner life onto the sky. The same patience and respect for material that a mural needs is what an old, damaged canvas asks for too. I take a limited number of commissions and conservation projects so each can be given the time it deserves.</p>
+          <div class="about-sign">Claudiu Peta</div>
         </div>
+      </div>
+
+      <!-- CV block (full width), features.js fills #cv-body -->
+      <div class="cv cv-print-area">
+        <div class="cv-head">
+          <h3 data-i18n="cv.heading">Curriculum Vitae</h3>
+          <div class="cv-actions">
+            <a class="btn cv-download" href="assets/cv/Claudiu-Peta-CV-2026.pdf" target="_blank" rel="noopener" download data-cv-download data-i18n="cv.download">Download CV (PDF)</a>
+            <span class="cv-updated"><span data-i18n="cv.updated">Updated</span> <span data-cv-updated></span></span>
+          </div>
+        </div>
+        <div id="cv-body" class="cv-body"></div>
+        <p class="cv-full-note" data-i18n="cv.full">The full CV, with press and complete project list, is in the PDF.</p>
       </div>
     </div>
   </section>
